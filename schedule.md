@@ -48,7 +48,7 @@ Oct 12 | Cache policies: [slides](lectures/lecture16-public.pdf) | *CSAPP* 6.4 |
 Oct 14 | Caches and program execution: see Piazza for slides | *CSAPP* 6.5 | 
 Oct 17 | Linking basics, symbols, relocations, executables, loading: [slides](lectures/lecture18-public.pdf) | *CSAPP* 7.1–7.9 | 
 Oct 19 | Dynamic linking, shared libraries, PIC, interpositioning: [slides](lectures/lecture19-public.pdf), [dynload.zip (example code)](lectures/dynload.zip) | *CSAPP* 7.10–7.15 | 
-Oct 20–21 | **Fall break: [slides]( no classes**) |  | 
+Oct 20–21 | **Fall break (no classes)** |  | 
 Oct 24 | Exceptions, Processes: [slides](lectures/lecture20-public.pdf) | *CSAPP* 8.1–8.4, 8.7 | 
 Oct 26 | Signals: [slides](lectures/lecture21-public.pdf), [signals.zip (example code)](lectures/signals.zip) | *CSAPP* 8.5–8.6 | 
 Oct 28 | Virtual memory: [slides](lectures/lecture22-public.pdf) | *CSAPP* 9.1–9.3 | 
