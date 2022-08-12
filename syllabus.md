@@ -131,13 +131,9 @@ not be considered for credit.  Having said that, we understand that
 exceptional circumstances can arise.  If you are in a situation where you
 think you may need additional late hours, please notify your instructor.
 
-You are expected to participate in in-person/synchronous class meetings.
-
-Additional activities counting towards participation credit include the following:
-
-* Attending office hours (in person or remotely)
-* Asking and/or answering questions on Piazza
-* Watching lecture recording videos
+You are expected to attend class in person.  The participation credit is
+earned by participating in peer instruction quizzes during class. You will
+need an iClicker remote to participate in these quizzes.
 
 ## Key Dates
 
