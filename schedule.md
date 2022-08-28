@@ -60,12 +60,12 @@ Nov 9 | Unix I/O, files: [slides](lectures/lecture25-public.pdf) | *CSAPP* 10.1�
 Nov 11 | Networks, Internet Protocol: [slides](lectures/lecture26-public.pdf) | *CSAPP* 11.1–11.3 | 
 Nov 14 | Sockets, Application Protocols: [slides](lectures/lecture27-public.pdf), [sockets.zip (example code)](lectures/sockets.zip) | *CSAPP* 11.4 | 
 Nov 16 | Network applications, HTTP: [slides](lectures/lecture28-public.pdf), [webserver.zip (example code)](lectures/webserver.zip) | *CSAPP* 11.4–11.6 | 
-Nov 18 | Concurrency with threads: [slides](lectures/lecture30-public.pdf), [mt_webserver.zip (example code)](lectures/mt_webserver.zip) | *CSAPP* 12.3 | 
+Nov 18 | Concurrency with pthreads: [slides](lectures/lecture29-public.pdf), [mt_webserver.zip (example code)](lectures/mt_webserver.zip) | *CSAPP* 12.3 | 
 Nov 21–25 | **Fall recess (no classes)** |  | 
-Nov 28 | Thread synchronization: [slides](lectures/lecture31-public.pdf), [synch.zip (example code)](lectures/synch.zip) | *CSAPP* 12.4–12.5 | 
-Nov 30 | Parallelism, concurrency issues: [slides](lectures/lecture33-public.pdf), [synch2.zip (example code)](lectures/synch2.zip) | *CSAPP* 12.6–12.7 | <span class='tentative'>A5 MS1 due</span>
-Dec 2 | Concurrency with processes: [slides](lectures/lecture29-public.pdf), [mp_webserver.zip (example code)](lectures/mp_webserver.zip) | *CSAPP* 12.1 | 
-Dec 5 | Concurrency with I/O multiplexing: [slides](lectures/lecture32-public.pdf), [iomux.zip (example code)](lectures/iomux.zip) | *CSAPP* 12.2 | 
+Nov 28 | Thread synchronization: [slides](lectures/lecture30-public.pdf), [synch.zip (example code)](lectures/synch.zip) | *CSAPP* 12.4–12.5 | 
+Nov 30 | Parallelism, concurrency issues: [slides](lectures/lecture31-public.pdf), [synch2.zip (example code)](lectures/synch2.zip) | *CSAPP* 12.6–12.7 | <span class='tentative'>A5 MS1 due</span>
+Dec 2 | Concurrency with processes: [slides](lectures/lecture32-public.pdf), [mp_webserver.zip (example code)](lectures/mp_webserver.zip) | *CSAPP* 12.1 | 
+Dec 5 | Concurrency with I/O multiplexing: [slides](lectures/lecture33-public.pdf), [iomux.zip (example code)](lectures/iomux.zip) | *CSAPP* 12.2 | 
 Dec 7 | *Topics TBD* |  | 
 Dec 9 | Exam 3 review session |  | <span class='tentative'>A5 MS2 due</span>
 TBD | **Exam 3** (location TBD) |  | 
