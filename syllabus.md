@@ -62,9 +62,9 @@ Piazza (announcements, discussion): <https://piazza.com/jhu/fall2022/601229>
 
 Gradescope (assignment/exam submission and grading): <https://www.gradescope.com>
 
-Videos will be posted on Blackboard: go to <http://my.jhu.edu>, log in,
-choose <b>Education</b> → <b>Blackboard</b>, choose EN.601.229 from
-courses, then choose <b>Panopto</b>
+Videos will be posted on Canvas: go to <http://my.jhu.edu>, log in,
+choose <b>Education</b> → <b>Canvas</b>, choose EN.601.229.01.FA22 from
+courses, then choose <b>Panopto Video</b>
 
 ## Course Information
 
@@ -152,7 +152,7 @@ The [Assignments](assignments.html) page lists assignments and their due dates.
 
 The [Schedule](schedule.html) lists the topics and readings for each day.
 
-The course's Blackboard page (under **Panopto**) hosts the lecture videos.
+The course's Canvas site (under **Panopto Video**) hosts the lecture videos.
 
 ## Ethics
 
