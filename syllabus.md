@@ -23,15 +23,22 @@ Office hours: T 12-2pm, Th 1-3pm, via Zoom (see Piazza for zoom link)
 
 ## Course Assistants
 
-TBD
-
 Head CAs:
 
-*TBD*
+* Max Hahn <mhahn12@jhu.edu>
+* Susan Liu <sliu151@jhu.edu>
 
 CAs:
 
-*TBD*
+* Rishika Vadlamudi <rvadlam2@jhu.edu>
+* Tony Jung <tjung8@jhu.edu>
+* Jiarui Chen <jchen324@jhu.edu>
+* David Hla <dhla2@jhu.edu>
+* Elena Kote <ekote1@jhu.edu>
+* Lambert Kober <lkober1@jhu.edu>
+* Theo Lee <tlee158@jhu.edu>
+* Rena Bi <rbi4@jhu.edu>
+* Lisa Hou <qhou4@jh.edu>
 
 ## Meeting
 

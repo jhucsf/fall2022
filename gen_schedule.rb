@@ -10,8 +10,8 @@ category: "schedule"
 ---
 
 This page lists topics, readings, and has links to lecture slides.
-It also lists assignment due dates.  Dates <span class="tentative">in
-gray</span> are tentative.
+It also lists assignment due dates.  Items <span class="tentative">in
+gray italic</span> are tentative.
 
 This schedule could (and probably will) change!  Changes
 to the schedule will be announced in class and/or on
