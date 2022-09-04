@@ -135,6 +135,7 @@ div.highlighter-rouge {
 	border: 1px solid #ccc;
 	padding: 0 1em;
 	border-radius: .25em;
+  overflow: auto;
 }
 
 code.highlighter-rouge {
@@ -151,6 +152,10 @@ code.highlighter-rouge {
 .tentative {
 	color: gray;
   font-style: italic;
+}
+
+.content-image img {
+  max-width: 100%;
 }
 
 /*
