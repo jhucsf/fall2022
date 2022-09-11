@@ -37,8 +37,8 @@ Sep 16 | Control flow: [slides](lectures/lecture08-public.pdf), [control.zip (ex
 Sep 19 | Procedures, stacks: [slides](lectures/lecture09-public.pdf), [control2.zip (example code)](lectures/control2.zip) | *CSAPP* 3.7 | <span class='tentative'>A2 MS1 due<br>Tues 9/20</span>
 Sep 21 | Arrays and structs: [slides](lectures/lecture10-public.pdf), [arraystruct.zip (example code)](lectures/arraystruct.zip) | *CSAPP* 3.8–3.9 | 
 Sep 23 | Assembly language in class exercise |  | 
-Sep 26 | Code and data interactions, buffer overflows: [slides](lectures/lecture11-public.pdf), [buf.zip (example code)](lectures/buf.zip) | *CSAPP* 3.10 | <span class='tentative'>A2 MS2 due<br>Tues 9/27</span>
-Sep 28 | Program optimization (basic techniques): see Piazza for slides | *CSAPP* 5.1–5.8 | 
+Sep 26 | Code and data interactions, buffer overflows: [slides](lectures/lecture11-public.pdf), [buf.zip (example code)](lectures/buf.zip) | *CSAPP* 3.10 | 
+Sep 28 | Program optimization (basic techniques): see Piazza for slides | *CSAPP* 5.1–5.8 | <span class='tentative'>A2 MS3 due<br>Thurs 9/29</span>
 Sep 30 | Exam 1 review session |  | 
 Oct 3 | **Exam 1** (in class) |  | 
 Oct 5 | Pipelines: [slides](lectures/lecture13-public.pdf) | <i>P&amp;H</i> 4.5–4.7 | <span class='tentative'>A2 MS2 due<br>Thurs 10/6</span>
