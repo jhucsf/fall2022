@@ -3,18 +3,22 @@ layout: mathjax
 title: "Assignment 2: Drawing functions"
 ---
 
+*If you are seeing this assignment description, you are seeing it before
+it is officially released, so please understand that details could
+change.*
+
 **Due**:
 
-* Milestone 1 due TBD
-* Milestone 2 due TBD
-* Milestone 3 due TBD
+* Milestone 1 due Tues Sept 20th by 11pm
+* Milestone 2 due Thurs Sept 29th by 11pm
+* Milestone 3 due Thurs Sept Oct 6th by 11pm
 
 This is a pair assignment, so you may work with one partner.
 
 ## Overview
 
 In this assignment, you will implement functions which perform drawing
-operations into an in-memory image representation, in both C and assembly
+operations into an in-memory image representation, in both C and x86-64 assembly
 language.
 
 **Warning**: Assembly language programming is challenging! Make sure
@@ -23,7 +27,7 @@ ask questions early.  Also, writing unit tests and using `gdb` to
 examine the detailed behavior of code under test will be critical
 to successful implementation of the assembly language functions.
 
-### Important requirement
+### Non-functional requirements
 
 In Milestones 2 and 3, you will be writing assembly language functions.
 You **must** write these "by hand", and your assembly code must have
@@ -35,13 +39,50 @@ code using a C compiler and submit this as your own code. We will assign
 a grade of 0 to any submissions containing compiler-generated code
 where hand-written assembly language is expected.
 
+Your submission for each milestone should include a `README.txt` file
+describing how you and your partner divided the work, and letting
+us know about any interesting implementation details. If there is
+functionality you weren't able to get working completely, this is
+a good place to mention that.
+
+We expect you to follow the [style guidelines](style.html).
+However, the expectations for function length will be relaxed considerably
+for your assembly language code. It is not unusual for an assembly language
+function to have 100 or more lines of code. In the reference solution,
+the longest function was 170 lines, although there was extensive use of
+comments and whitespace to improve readability.
+
+Of course, you should strive to make your assembly language functions
+as simple and readable as possible.
+
+We expect your code to be free of memory errors. You should use
+`valgrind` to test your code to make sure there are no uses
+of uninitialized variables, out of bounds memory reads or writes,
+etc.  This applies to both your C code and your assembly code.
+
 ## Getting started
 
-Downloading the skeleton code.
+To get started, download [csf\_assign02.zip](csf_assign02.zip) and
+unzip it.
 
 ## Grading breakdown
 
 Your grade for the assignment will be determined as follows:
+
+* Milestone 1: 30%
+  * Implementation of C drawing functions: 12.5%
+  * Unit testing of helper functions: 12.5%
+  * Design/coding style of C functions: 5%
+* Milestone 2: 35%
+  * Functional correctness of `draw_pixel`: 15%
+  * Unit testing of helper functions (existence of tests, evidence that they pass): 15%
+  * Design/coding style of assembly functions: 5%
+* Milestone 3: 35%
+  * Functional correctness of `draw_rect`: 13.5%
+  * Functional correctness of `draw_circle`: 12.5%
+  * Functional correctness of `draw_tile`: 2%
+  * Functional correctness of `draw_sprite`: 2%
+  * Design/coding style of assembly functions: 5%
 
 ## Drawing functions
 
@@ -377,9 +418,8 @@ write in assembly language, and implementing them is worth only 4 points
 This section contains hints, tips, and general recommendations for how to
 make progress on this assignment.
 
-Note: this section is currently incomplete, and will be updated. However, it
-does have enough information that you could start working on
-[Milestone 1](#milestone-1-c-implementation).
+Note: it's possible that we will update this section. We will let you
+know (in class and on Piazza) if we do.
 
 ### C implementation and helper functions
 
@@ -594,4 +634,16 @@ memory as an array of 8 `unsigned` elements.
 
 ## Submitting
 
-To submit your work.
+To submit your work for a milestone, create a zipfile with all of the code,
+along with your `README.txt`, using a command such as
+
+```
+zip -9r solution.zip *.h *.c *.S Makefile README.txt
+```
+
+Please do not submit object files, executables, PNG image files,
+or other files not mentioned above.
+
+Upload the zipfile to [Gradescope](https://www.gradescope.com) as
+**Assignment 2 MS1**, **Assignment 2 MS2**, or **Assignment 2 MS3**, depending
+on which milestone you are submitting.
