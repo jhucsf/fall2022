@@ -115,7 +115,22 @@ A color is represented by a `uint32_t` value as follows:
 * Bits 0–7 are the 8 bit alpha value, ranging from 0–255
 
 The alpha value of a color represents its opacity, with 255 meaning
-"fully opaque" and 0 meaning "fully transparent".
+"fully opaque" and 0 meaning "fully transparent". (See the
+[Color blending](#color-blending) section for details on how
+an alpha value allows two colors to be "blended".)
+
+The `struct Rect` data type is defined as follows:
+
+```c
+struct Rect {
+  int32_t x, y, width, height;
+};
+```
+
+An instance of `struct Rect` describes a rectangle where the upper-left
+corner is specified by `x` and `y`, the width of the rectangle (in pixels)
+is specified by `width`, and the height of the rectangle (in pixels)
+is specified by `height`.
 
 ### Color blending
 
@@ -131,7 +146,7 @@ each color component, where $$f$$ is the foreground color component value,
 $$b$$ is the background color component value, and $$\alpha$$ is the
 alpha value of the foreground color:
 
-$$\lfloor (\alpha f + (1 - \alpha)b) / 255 \rfloor$$
+$$\lfloor (\alpha f + (255 - \alpha)b) / 255 \rfloor$$
 
 Note that the result of the division is truncated rather than being rounded,
 so if you use integer division, it will behave in the expected way.
@@ -225,14 +240,14 @@ To run the programs:
 
 ```
 mkdir -p out
-./c_draw out/example01.png input/example01.in
+./c_draw out/example01.png < input/example01.in
 ```
 
 or
 
 ```
 mkdir -p out
-./asm_draw out/example01.png input/example01.in
+./asm_draw out/example01.png < input/example01.in
 ```
 
 There are other example input files in the `input` directory included in the
