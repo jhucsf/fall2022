@@ -205,6 +205,53 @@ void draw_tile(struct Image *img,
 }
 ```
 
+## `c_draw` and `asm_draw` programs
+
+As a demonstration of how the drawing functions could be used to implement
+2D graphics, the `c_driver.c` program reads data from an "image description"
+and renders the resulting operations to a `struct Image` in memory,
+which is then written to a PNG file.
+
+This program can be compiled as either `c_draw` or `asm_draw`. The only
+difference is whether the C or assembly language implementations of the
+drawing functions are used. To build them:
+
+```
+make c_draw
+make asm_draw
+```
+
+To run the programs:
+
+```
+mkdir -p out
+./c_draw out/example01.png input/example01.in
+```
+
+or
+
+```
+mkdir -p out
+./asm_draw out/example01.png input/example01.in
+```
+
+There are other example input files in the `input` directory included in the
+skeleton code.
+
+Note that the `expected` directory contains the expected output for each
+example input file. You can use the `compare` program to test your program's
+put with the expected output. For example:
+
+```
+compare -metric RMSE expected/example01.png out/example01.png out/example01_diff.png
+```
+
+It is expected that your drawing operations produce results which are
+*identical* to the expected images. If they are not identical, the
+"diff image" produced by the `compare` program (in the example above,
+`out/example01_diff.png`) will have a red pixel for each location
+where the generated image differed from the expected image.
+
 ## Milestones
 
 ### Milestone 1: C implementation
