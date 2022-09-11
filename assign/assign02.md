@@ -140,6 +140,11 @@ A blended color should have each color component value (red, green, and blue)
 computed using the formula above, and the alpha value of the blended color
 should be set to 255.
 
+The `draw_pixel`, `draw_rect`, `draw_circle`, and `draw_sprite`
+functions all should use color blending. The exception is the
+`draw_tile` function, which does not blend the copied tile colors
+with the existing pixel colors.
+
 ### Drawing a circle
 
 The drawing functions should be implemented entirely using integer
@@ -158,6 +163,47 @@ However, we could square both sides of the inequality to give us
 $$(x - j)^{2} + (y - i)^{2} \le r^{2}$$
 
 This computation only requires integer arithmetic.
+
+### Bounds checking
+
+When any drawing function is executed, it should only attempt
+to draw pixels that are in the boundaries of the destination
+image.
+
+For example, if `draw_pixel` is called, and either
+
+* the $$x$$ coordinate is less than 0 or greater than or equal to the image width, or
+* the $$y$$ coordinate is less than 0 or greater than or equal to the image height
+
+then the destination image should not be modified.
+
+The `draw_rect` and `draw_circle` functions could be asked to draw a rectangle
+or circle that is partially or entirely outside the bounds of the destination
+image. Only the pixels that are within the image bounds should be drawn.
+
+The `draw_tile` or `draw_sprite` could be asked to draw pixels (copied
+from the source tilemap or spritemap image) that are not within the bounds
+of the destination image. Only pixels that are within the bounds of the
+destination iamge should be modified.
+
+Note also that the `draw_tile` and `draw_sprite` functions could be
+passed `struct Rect` data such that the region described by the
+rectangle is not entirely within the source tilemap or spritemap
+image. In this case, the expected behavior is for the function to do
+nothing. For example:
+
+```c
+void draw_tile(struct Image *img,
+               int32_t x, int32_t y,
+               struct Image *tilemap,
+               const struct Rect *tile) {
+  if (/* tile rectangle is not entirely within the bounds of tilemap */) {
+    return;
+  }
+
+  // proceed to copy pixel data from tilemap to dest image...
+}
+```
 
 ## Milestones
 
@@ -253,3 +299,13 @@ implemented yet.
 
 Once you have stub versions of each function added, you can start implementing
 the implementations of the helper functions.
+
+### Milestone 3: assembly language `draw_rect`, `draw_circle`, `draw_tile`, and `draw_sprite`
+
+In Milestone 3, your task is to implement the remaining functions in assembly language.
+
+**Important!** You are really only expected to implement `draw_rect` and `draw_circle`.
+The other two functions (`draw_tile` and `draw_sprite`) are quite complicated to
+write in assembly language, and implementing them is worth only 4 points
+(out of 100 for the entire assignment.) If you attempt them at all, it should be
+*after* `draw_rect` and `draw_circle` are completely working.
