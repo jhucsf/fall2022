@@ -13,13 +13,17 @@ This is a pair assignment, so you may work with one partner.
 
 ## Overview
 
-Brief overview.
+In this assignment, you will implement functions which perform drawing
+operations into an in-memory image representation, in both C and assembly
+language.
 
-## Getting started
+**Warning**: Assembly language programming is challenging! Make sure
+you start each milestone as soon as possible, work steadily, and
+ask questions early.  Also, writing unit tests and using `gdb` to
+examine the detailed behavior of code under test will be critical
+to successful implementation of the assembly language functions.
 
-Downloading the skeleton code.
-
-## You must hand-write your own assembly language code!
+### Important requirement
 
 In Milestones 2 and 3, you will be writing assembly language functions.
 You **must** write these "by hand", and your assembly code must have
@@ -30,6 +34,10 @@ It is **not** allowed to generate assembly
 code using a C compiler and submit this as your own code. We will assign
 a grade of 0 to any submissions containing compiler-generated code
 where hand-written assembly language is expected.
+
+## Getting started
+
+Downloading the skeleton code.
 
 ## Grading breakdown
 
@@ -80,11 +88,76 @@ Briefly:
 
 ### struct Image and struct Rect data types
 
-Overview of the `struct Image` and `struct Rect` data types.
+To understand the functionality of the drawing functions, it is necessary
+to understand the `struct Image` and `struct Rect` data types, as well
+as how colors are represented.
+
+The `struct Image` type is defined as follows:
+
+```c
+struct Image {
+  uint32_t width;
+  uint32_t height;
+  uint32_t *data;
+};
+```
+
+The `width` and `height` fields define the width and height of an image,
+in pixels. The `data` field is a pointer to a dynamically-allocated array
+of `uint32_t` values, each one representing one pixel. The pixels are stored
+in row-major order, starting with the top row of pixels.
+
+A color is represented by a `uint32_t` value as follows:
+
+* Bits 24-31 are the 8 bit red component value, ranging from 0–255
+* Bits 16-23 are the 8 bit green component value, ranging from 0–255
+* Bits 8–15 are the 8 bit blue component value, ranging from 0–255
+* Bits 0–7 are the 8 bit alpha value, ranging from 0–255
+
+The alpha value of a color represents its opacity, with 255 meaning
+"fully opaque" and 0 meaning "fully transparent".
 
 ### Color blending
 
-Explanation of color blending
+The color values of the destination image are always fully opaque,
+with an alpha value of 255.
+
+When a pixel is drawn to a destination image by any operation other than
+`draw_tile`, the pixel's color, which we'll call the "foreground" color,
+is blended with the existing color at the location where the pixel is being
+drawn, which we'l call the "background" color. To find the correct color
+value for the new pixel, the following computation is performed for
+each color component, where $$f$$ is the foreground color component value,
+$$b$$ is the background color component value, and $$\alpha$$ is the
+alpha value of the foreground color:
+
+$$\lfloor (\alpha f + (1 - \alpha)b) / 255 \rfloor$$
+
+Note that the result of the division is truncated rather than being rounded,
+so if you use integer division, it will behave in the expected way.
+
+A blended color should have each color component value (red, green, and blue)
+computed using the formula above, and the alpha value of the blended color
+should be set to 255.
+
+### Drawing a circle
+
+The drawing functions should be implemented entirely using integer
+arithmetic. When drawing a filled circle, all of the pixels within
+$$r$$ units of distance from the circle's center should be drawn
+with the specified color. Ordinarily, if the pixel's center is at
+$$x,y$$ and the point being considered is at $$j,i$$,
+determining if $$j,i$$ is in the circle would be determined by the
+inequality
+
+$$\sqrt{(x - j)^{2} + (y - i)^{2}} \le r$$
+
+The square root operation would require floating point math.
+However, we could square both sides of the inequality to give us
+
+$$(x - j)^{2} + (y - i)^{2} \le r^{2}$$
+
+This computation only requires integer arithmetic.
 
 ## Milestones
 
@@ -94,6 +167,13 @@ Milestone 1 requires implementing all of the drawing functions in C.
 
 The `test_drawing_functions.c` test program has a reasonably comprehensive
 set of unit tests for the drawing functions themselves.
+You can compile and run this program using the commands
+
+```
+make depend
+make c_test_drawing_functions
+./c_test_drawing_functions
+```
 
 However, you will want to write helper functions, and add your own
 tests for your helper functions. These helper functions and their tests
@@ -155,7 +235,7 @@ functions, you are welcome to do that.
 
 ### Milestone 2: assembly language `draw_pixel`, helper functions
 
-Goal is to fully implement the `draw_pixel` function, along with
+The goal of Milestone 2 is to fully implement the `draw_pixel` function, along with
 required helper functions.
 
 **Important**: your assembly language code should be a manual translation
