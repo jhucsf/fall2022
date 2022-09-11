@@ -371,3 +371,227 @@ The other two functions (`draw_tile` and `draw_sprite`) are quite complicated to
 write in assembly language, and implementing them is worth only 4 points
 (out of 100 for the entire assignment.) If you attempt them at all, it should be
 *after* `draw_rect` and `draw_circle` are completely working.
+
+## Hints and tips
+
+This section contains hints, tips, and general recommendations for how to
+make progress on this assignment.
+
+Note: this section is currently incomplete, and will be updated. However, it
+does have enough information that you could start working on
+[Milestone 1](#milestone-1-c-implementation).
+
+### C implementation and helper functions
+
+There are two related purposes for having you implement the drawing
+functions in C in Milestone 1.
+
+The first purpose is to fully understand how the drawing functions
+are intended to work.
+
+The second purpose is to find opportunities to create helper functions
+to simplify the implementation of the drawing functions, and to
+write unit tests for those helper functions.
+
+The helper functions suggested in the [Milestone 1](#milestone-1-c-implementation)
+section are one approach to managing the complexity of the drawing functions,
+but are certainly not the only way. The thing to keep in mind is that writing
+an assembly language function is, in general, *much* more complicated than
+writing an equivalent C function. Arithmetic that would be straighforward
+to implement using a single line of C code could involve dozens of lines of
+assembly code. So, helper functions to perform arithmetic, bounds checking,
+color blending, and so forth are valuable because they will allow you to
+make progress on your assembly code one helper function at a time.
+Without well-factored helper functions with good testing, you could
+easily find your assembly languge code turning into an unmaintainable mess.
+
+## x86-64 tips
+
+Here are some x86-64 assembly language tips and tricks in no particular order.
+
+Callee-saved registers are your best option to serve as local variables
+in your assembly language functions. The callee-saved registers are
+`%r12`, `%r13`, `%r14`, `%r15`, `%rbx`, and `%rbp`. If you are going
+to store data in a callee-saved register, make sure that you use `pushq`
+to save its value at the beginning of the function, and `popq` to restore
+its value at the end of the function. (The `popq` instructions must be in
+the opposite order as the `pushq` instructions.)
+
+If you run out of callee-saved registers, then you can use memory in the
+stack frame to store local variables. To reserve `N` bytes of memory,
+use `subq $N, %rsp` at the beginning of the function. You will need
+a corresponding `addq $N, %rsp` at the end of the function.  Note that
+the `subq` must happen *after* you use `pushq` to save the values
+of callee-saved registers, and the `addq` must happen *before* you
+use `popq` to restore the values of callee-saved registers.
+Also, don't forget that the amount by which the stack pointer is
+changed needs to be an odd multiple of 8 (so 8, or 24, or 40, etc.),
+and that each `pushq` subtracts 8 from `%rsp`.
+
+If you've reserved memory for local variables on the stack, you can
+refer to them by their offsets from `%rsp`. (See the example comment
+below.)
+
+Don't forget that you need to prefix constant values with `$`.  For example,
+if you want to set register `%r10` to 16, the instruction is
+
+```
+movq $16, %r10
+```
+
+and not
+
+```
+movq 16, %r10
+```
+
+When calling a function, the stack pointer (`%rsp`) must contain an address
+which is a multiple of 16.  However, because the `callq` instruction
+pushes an 8 byte return address on the stack, on entry to a function,
+the stack pointer will be "off" by 8 bytes.  You can subtract 8 from
+`%rsp` when a function begins and add 8 bytes to `%rsp` before returning
+to compensate.  (See the example `addLongs` function.)  Pushing an
+odd number of callee-saved registers also works, and has the benefit
+that you can then use the callee-saved registers freely in your function.
+
+We *strongly* recommend that you have a comment in each function explaining
+how it uses callee-saved registers and stack memory, since these are
+the equivalent of local variables in assembly code. For exmaple,
+here is a comment taken from one of the helper functions in the
+reference solution:
+
+```c
+/*
+ * Register use:
+ *   %r12 - pointer to dest Image
+ *   %r13d - x coord
+ *   %r14d - y coord
+ *   %r15 - pointer to blockmap Image
+ *   %rbx - pointer to block Rect, then i (row counter)
+ *   %ebp - j (column counter)
+ *
+ * Stack use (32 bytes):
+ *   0(%rsp) - min_x
+ *   4(%rsp) - max_x
+ *   8(%rsp) - min_y
+ *   12(%rsp) - max_y
+ *   16(%rsp) - blend
+ *   20(%rsp) - block->x
+ *   24(%rsp) - block->y
+ *   28(%rsp) - saved dest index
+ */
+```
+
+Recall that your assembly language code must have detailed comments
+explaining each line of assembly code. The following example
+function illustrates the level of commenting that we expect to see:
+
+```
+/*
+ * Determine the length of specified character string.
+ *
+ * Parameters:
+ *   %rdi - pointer to a NUL-terminated character string
+ *
+ * Returns:
+ *    number of characters in the string
+ */
+	.globl str_len
+str_len:
+	subq $8, %rsp                 /* adjust stack pointer */
+	movq $0, %r10                 /* initial count is 0 */
+
+.Lstr_len_loop:
+	cmpb $0, (%rdi)               /* found NUL terminator? */
+	jz .Lstr_len_done             /* if so, done */
+	inc %r10                      /* increment count */
+	inc %rdi                      /* advance to next character */
+	jmp .Lstr_len_loop            /* continue loop */
+
+.Lstr_len_done:
+	movq %r10, %rax               /* return count */
+	addq $8, %rsp                 /* restore stack pointer */
+	ret
+```
+
+As illustrated in the example function, labels for control flow
+should be *local labels*, with names beginning with "`.L`".
+If you don't use local labels within functions, debugging with
+`gdb` will be difficult because `gdb` will think that each control
+flow label is the beginning of a function.
+
+## Debugging tips
+
+You primary means of determining whether or not your code works correctly
+is running the unit test programs (`c_test_drawing_funcs` and `asm_test_drawing_funcs`.)
+
+If a unit test fails, you should use `gdb` to debug the code to determine
+why it is not working.
+
+Setting a breakpoint on the specific test function that is failing is
+one way to start. For example, if the `test_in_bounds` test function
+is failing, in `gdb` set a breakpoint on that function, then run the
+program so that it only runs that test function:
+
+```
+break test_in_bounds
+run test_in_bounds
+```
+
+You will gain control of the program at the beginning of the test
+function, at which point you can step through the code, inspect
+variables, registers, and memory, etc.
+
+Another good option for setting a breakpoint is the `siglongjmp`
+function, because this is the function called when a test assertion
+fails. For example, assuming `test_in_bounds` has an assertion failure:
+
+```
+break siglongjmp
+run test_in_bounds
+```
+
+When the `sigjongjmp` breakpoint is reached, use the `up` command (as many
+times as needed) to enter the stack frame for the failing assertion.
+This can allow you to check variables at the location of the assertion.
+
+Don't forget that you can inspect register values in `gdb` by prefixing the
+register name with the "`$`" character. For example:
+
+```
+print $ebx
+```
+
+would show you the contents of the `%ebx` register. Using `print/x` allows
+you to see integer values in hexadecimal (very useful for checking color values.)
+
+Casting a register to a pointer allows you to interpret memory as values
+belonging to C data types. For example, let's say `%r10` points to a
+`struct Image` instance. You could check the value of the element
+at index 18 of the `data` array using the command
+
+```
+print/x ((struct Image *)$r10)->data[18]
+```
+
+If you are storing local variables in stack memory, and using `%rsp` to
+access them, it is easy to see their values. In particular, if all of the
+local variables are the same size and type (e.g., they are all
+4-byte integers), then you can think of them as an array.
+For example, in the comment above about local variable allocation,
+there are 8 local variables allocated in stack memory, each of which
+is a 4 byte integer value. We can see all of the values at once
+with the `gdb` comamnd
+
+```
+print (unsigned [8]) *((unsigned *)$rsp)
+```
+
+Here we are pretending that these variables belong to the `unsigned` type,
+which is the same as the `uint32_t` type.  The `(unsigned [8])` at the
+beginning of the expression tells `gdb` that we are interpreting the
+memory as an array of 8 `unsigned` elements.
+
+## Submitting
+
+To submit your work.
