@@ -32,5 +32,8 @@ Please email <daveho@cs.jhu.edu> if you need to get access to Gradescope.
 
 ## News
 
+* **Sep 12** — [Assignment 2](assign/assign02.html) has been posted.
+  It has three milestones, due (respectively) Tuesday Sep 20, Thursday Sep 29,
+  and Thursday Oct 6.
 * **Aug 29** — Welcome! [Assignment 1](assign/assign01.html) has two milestones,
   due at 11pm on Tuesday, Sep 6 and Tuesday, Sep 13.

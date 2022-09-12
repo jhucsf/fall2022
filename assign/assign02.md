@@ -3,10 +3,6 @@ layout: mathjax
 title: "Assignment 2: Drawing functions"
 ---
 
-*If you are seeing this assignment description, you are seeing it before
-it is officially released, so please understand that details could
-change.*
-
 **Due**:
 
 * Milestone 1 due Tues Sept 20th by 11pm

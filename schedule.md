@@ -34,14 +34,14 @@ Sep 9 | Floating point: [slides](lectures/lecture05-public.pdf) | *CSAPP* 2.4 |
 Sep 12 | Machine-level program representation: [slides](lectures/lecture06-public.pdf) | *CSAPP* 3.1–3.4 | A1 MS2 due<br>Tues 9/13
 Sep 14 | ALU operations, arithmetic: [slides](lectures/lecture07-public.pdf), [alu.zip (example code)](lectures/alu.zip) | *CSAPP* 3.5 | 
 Sep 16 | Control flow: [slides](lectures/lecture08-public.pdf), [control.zip (example code)](lectures/control.zip) | *CSAPP* 3.6 | 
-Sep 19 | Procedures, stacks: [slides](lectures/lecture09-public.pdf), [control2.zip (example code)](lectures/control2.zip) | *CSAPP* 3.7 | <span class='tentative'>A2 MS1 due<br>Tues 9/20</span>
+Sep 19 | Procedures, stacks: [slides](lectures/lecture09-public.pdf), [control2.zip (example code)](lectures/control2.zip) | *CSAPP* 3.7 | A2 MS1 due<br>Tues 9/20
 Sep 21 | Arrays and structs: [slides](lectures/lecture10-public.pdf), [arraystruct.zip (example code)](lectures/arraystruct.zip) | *CSAPP* 3.8–3.9 | 
 Sep 23 | Assembly language in class exercise |  | 
 Sep 26 | Code and data interactions, buffer overflows: [slides](lectures/lecture11-public.pdf), [buf.zip (example code)](lectures/buf.zip) | *CSAPP* 3.10 | 
-Sep 28 | Program optimization (basic techniques): see Piazza for slides | *CSAPP* 5.1–5.8 | <span class='tentative'>A2 MS3 due<br>Thurs 9/29</span>
+Sep 28 | Program optimization (basic techniques): see Piazza for slides | *CSAPP* 5.1–5.8 | A2 MS2 due<br>Thurs 9/29
 Sep 30 | Exam 1 review session |  | 
 Oct 3 | **Exam 1** (in class) |  | 
-Oct 5 | Pipelines: [slides](lectures/lecture13-public.pdf) | <i>P&amp;H</i> 4.5–4.7 | <span class='tentative'>A2 MS2 due<br>Thurs 10/6</span>
+Oct 5 | Pipelines: [slides](lectures/lecture13-public.pdf) | <i>P&amp;H</i> 4.5–4.7 | A2 MS3 due<br>Thurs 10/6
 Oct 7 | Program optimization (ILP, memory, profiling): see Piazza for slides | *CSAPP* 5.9–5.14 | 
 Oct 10 | Memory hierarchy: [slides](lectures/lecture15-public.pdf) | *CSAPP* 6.1–6.3 | <span class='tentative'>A3 MS1 due</span>
 Oct 12 | Cache policies: [slides](lectures/lecture16-public.pdf) | *CSAPP* 6.4 | 
