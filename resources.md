@@ -32,12 +32,15 @@ Review materials for Exam 3:
 * [Final exam, Fall 2019](resources/final-fall2019.pdf) (Quesetions 4–5), [Solution](resources/final-fall2019-soln.pdf)
 * [Final exam, Spring 2020](resources/final-spring2020.pdf) (Questions 4–5), [Solution](resources/final-spring2020-soln.pdf)
 * [Exam 3, Fall 2021](resources/exam03-fall2021.pdf), [Solution](resources/exam03-fall2021-soln.pdf)
+-->
 
 ## x86-64 assembly language exercises
 
 * [Assembly language mini-exercises](resources/assemblyMini.html)
 * [Assembly language exercise](resources/assembly.html), [solution](resources/asmExerciseSoln.zip)
 * [Assembly language exercise 2 (more challenging)](resources/assembly2.html)
+
+<!--
 * Fixed version of code for in-class assembly exercise, section 1:
   [asm\_exercise\_sec01.zip](resources/asm_exercise_sec01.zip)
 * Fixed (mostly) version of code for in-class assembly exercise, section 2:
