@@ -39,6 +39,7 @@ CAs:
 * Theo Lee <tlee158@jhu.edu>
 * Rena Bi <rbi4@jhu.edu>
 * Lisa Hou <qhou4@jh.edu>
+* Kuleen Sasse <ksasse1@jhu.edu>
 
 ## Meeting
 
