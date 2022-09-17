@@ -310,7 +310,7 @@ where the generated image differed from the expected image.
 
 Milestone 1 requires implementing all of the drawing functions in C.
 
-The `test_drawing_functions.c` test program has a reasonably comprehensive
+The `test_drawing_funcs.c` test program has a reasonably comprehensive
 set of unit tests for the drawing functions themselves.
 You can compile and run this program using the commands
 
@@ -386,7 +386,7 @@ required helper functions.
 **Important**: your assembly language code should be a manual translation
 of your C functions, including the helper functions, to assembly language.
 
-Building the `asm_test_drawing_functions` executable will allow you
+Building the `asm_test_drawing_funcs` executable will allow you
 to run the unit tests you wrote for your C helper functions on the
 assembly language implementations of those functions.
 
