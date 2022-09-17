@@ -316,8 +316,8 @@ You can compile and run this program using the commands
 
 ```
 make depend
-make c_test_drawing_functions
-./c_test_drawing_functions
+make c_test_drawing_funcs
+./c_test_drawing_funcs
 ```
 
 However, you will want to write helper functions, and add your own
