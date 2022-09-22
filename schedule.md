@@ -36,7 +36,7 @@ Sep 14 | ALU operations, arithmetic: [slides](lectures/lecture07-public.pdf), [a
 Sep 16 | Control flow: [slides](lectures/lecture08-public.pdf), [control.zip (example code)](lectures/control.zip) | *CSAPP* 3.6 | 
 Sep 19 | Procedures, stacks: [slides](lectures/lecture09-public.pdf), [control2.zip (example code)](lectures/control2.zip) | *CSAPP* 3.7 | A2 MS1 due<br>Tues 9/20
 Sep 21 | Arrays and structs: [slides](lectures/lecture10-public.pdf), [arraystruct.zip (example code)](lectures/arraystruct.zip) | *CSAPP* 3.8–3.9 | 
-Sep 23 | Assembly language in class exercise |  | 
+Sep 23 | Assembly language in class exercise: [slides](lectures/assembly-exercise-public.pdf) |  | 
 Sep 26 | Code and data interactions, buffer overflows: [slides](lectures/lecture11-public.pdf), [buf.zip (example code)](lectures/buf.zip) | *CSAPP* 3.10 | 
 Sep 28 | Program optimization (basic techniques): see Piazza for slides | *CSAPP* 5.1–5.8 | A2 MS2 due<br>Thurs 9/29
 Sep 30 | Exam 1 review session |  | 
