@@ -11,6 +11,9 @@ title: "Assignment 2: Drawing functions"
 
 This is a pair assignment, so you may work with one partner.
 
+*Update 9/22*: Added a link to the [Assembly language demo](https://jh.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=4b406360-7fbc-4875-b2e4-af1800e8286b)
+screencast video to the [x86-64 tips](#x86-64-tips) section.
+
 ## Overview
 
 In this assignment, you will implement functions which perform drawing
@@ -442,6 +445,11 @@ Without well-factored helper functions with good testing, you could
 easily find your assembly languge code turning into an unmaintainable mess.
 
 ## x86-64 tips
+
+We made a [screencast video](https://jh.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=4b406360-7fbc-4875-b2e4-af1800e8286b)
+which walks through implementing, testing, and debugging assembly language
+code. This video covers all of the essential techniques you will
+need for this assignment.
 
 Here are some x86-64 assembly language tips and tricks in no particular order.
 

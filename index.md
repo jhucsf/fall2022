@@ -32,6 +32,9 @@ Please email <daveho@cs.jhu.edu> if you need to get access to Gradescope.
 
 ## News
 
+* **Sep 22** — [Assignment 2](assign/assign02.html) has been updated with a
+  link to a [screencast video](https://jh.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=4b406360-7fbc-4875-b2e4-af1800e8286b)
+  which demonstrates implementing, testing, and debugging assembly code.
 * **Sep 12** — [Assignment 2](assign/assign02.html) has been posted.
   It has three milestones, due (respectively) Tuesday Sep 20, Thursday Sep 29,
   and Thursday Oct 6.
