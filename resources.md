@@ -49,7 +49,7 @@ Review materials for Exam 3:
 
 ## x86-64 assembly programming resources
 
-* [CSF Assembly Language Tips & Tricks](https://jhucsf.github.io/csfdocs/assembly-tips-v0.1.0.pdf)
+* [CSF Assembly Language Tips & Tricks](https://jhucsf.github.io/csfdocs/assembly-tips-v0.1.1.pdf)
   * This is a very comprehensive guide to x86-64 assembly language written by
     Max Hahn, focusing on issues that are important for CSF
 * [Brown x64 cheat sheet](https://cs.brown.edu/courses/cs033/docs/guides/x64_cheatsheet.pdf)
