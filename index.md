@@ -32,6 +32,10 @@ Please email <daveho@cs.jhu.edu> if you need to get access to Gradescope.
 
 ## News
 
+* **Sep 27** — [Assignment 2](assign/assign02.html) has been updated to clarify
+  that the unit test functions not related to `draw_pixel` should be commented
+  out in your submission for Milestone 2. See the [Grading breakdown](assign/assign02.html#grading-breakdown)
+  section.
 * **Sep 22** — [Assignment 2](assign/assign02.html) has been updated with a
   link to a [screencast video](https://jh.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=4b406360-7fbc-4875-b2e4-af1800e8286b)
   which demonstrates implementing, testing, and debugging assembly code.

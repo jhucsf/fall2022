@@ -14,6 +14,11 @@ This is a pair assignment, so you may work with one partner.
 *Update 9/22*: Added a link to the [Assembly language demo](https://jh.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=4b406360-7fbc-4875-b2e4-af1800e8286b)
 screencast video to the [x86-64 tips](#x86-64-tips) section.
 
+*Update 9/27*: Updated [Grading breakdown](#grading-breakdown)
+section to indicate that your submitted unit tests should completely
+pass when submitting MS2 and MS3.  For MS2, you should comment
+out calls to tests functions that aren't related to `test_pixel`.
+
 ## Overview
 
 In this assignment, you will implement functions which perform drawing
@@ -82,6 +87,26 @@ Your grade for the assignment will be determined as follows:
   * Functional correctness of `draw_tile`: 2%
   * Functional correctness of `draw_sprite`: 2%
   * Design/coding style of assembly functions: 5%
+
+Note that in each milestone, we expect all of the tests executed
+by your unit test program to pass. For MS2 in particular, you can
+comment out calls to test functions that aren't related to
+`draw_pixel`. For example, your `main` function might have
+code similar to the following:
+
+```c
+TEST(test_in_bounds);
+TEST(test_blend_colors);
+TEST(test_blend_components);
+TEST(test_draw_pixel);
+//TEST(test_draw_rect);
+```
+
+The tests for `in_bounds`, `blend_colors`, `blend_components`, and
+`draw_pixel` are enabled because they all test functions involved in
+the implementation of `draw_pixel`. The test for `draw_rect` is
+commented out because it is not part of the functionality expected
+for MS2.
 
 ## Drawing functions
 
