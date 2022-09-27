@@ -103,7 +103,7 @@ TEST(test_draw_pixel);
 ```
 
 The tests for `in_bounds`, `blend_colors`, `blend_components`, and
-`draw_pixel` are enabled because they all test functions involved in
+`draw_pixel` are enabled because they are all test functions involved in
 the implementation of `draw_pixel`. The test for `draw_rect` is
 commented out because it is not part of the functionality expected
 for MS2.
