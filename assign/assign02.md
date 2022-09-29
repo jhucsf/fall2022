@@ -6,8 +6,8 @@ title: "Assignment 2: Drawing functions"
 **Due**:
 
 * Milestone 1 due Tues Sept 20th by 11pm
-* Milestone 2 due Thurs Sept 29th by 11pm
-* Milestone 3 due Thurs Sept Oct 6th by 11pm
+* Milestone 2 due Friday Sept 30th by 11pm
+* Milestone 3 due Friday Oct 7th by 11pm
 
 This is a pair assignment, so you may work with one partner.
 
@@ -18,6 +18,9 @@ screencast video to the [x86-64 tips](#x86-64-tips) section.
 section to indicate that your submitted unit tests should completely
 pass when submitting MS2 and MS3.  For MS2, you should comment
 out calls to tests functions that aren't related to `test_pixel`.
+
+*Update 9/29*: Moved Milestone 2 and 3 deadlines to Friday
+Sept 30th and Friday Oct 7th, respectively.
 
 ## Overview
 
