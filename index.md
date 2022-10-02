@@ -32,6 +32,12 @@ Please email <daveho@cs.jhu.edu> if you need to get access to Gradescope.
 
 ## News
 
+* **Oct 2** — There was a mistake in the answer to question 1.d in the
+  [Exam 1 review solutions](resources/exam1review-solutions.html).
+  In the answer to the multiplication part of the question, the
+  exponent of the product was incorrectly indicated as 3 (encoded
+  as 130), but the correct exponent is 2 (encoded as 129.)
+  The solution has been corrected.
 * **Sep 29** — The due date for Milestones 2 and 3 of [Assignment 2](assign/assign02.html)
   have been moved to Friday Sept 30th and Friday Oct 7th, respectively.
 * **Sep 27** — [Assignment 2](assign/assign02.html) has been updated to clarify

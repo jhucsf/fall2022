@@ -124,14 +124,14 @@ In all questions, assume signed integers use two's complement representation.
 
     <p>10.000111<sub>2</sub> × 2<sup>1</sup> = 1.0000111<sub>2</sub> × 2<sup>2</sup></p>
 
-    <p>Encoded as IEEE 754 single precision (bias is 127, so exponent of 3 is
-       encoded as 3 + 127 = 130):</p>
+    <p>Encoded as IEEE 754 single precision (bias is 127, so exponent of 2 is
+       encoded as 2 + 127 = 129):</p>
 
     <table>
       <tr><th>Sign</th><th>Exponent</th><th>Fraction</th></tr>
       <tr>
         <td>0</td>
-        <td>10000010</td>
+        <td>10000001</td>
         <td>00001110000000000000000</td>
       </tr>
     </table>
