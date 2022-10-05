@@ -32,6 +32,11 @@ Please email <daveho@cs.jhu.edu> if you need to get access to Gradescope.
 
 ## News
 
+* **Oct 5** — [Assignment 3](assign/assign03.html) has been posted. There are
+  three milestones, due (respectively) Wed Oct 12, Mon Oct 24, and
+  Mon Oct 31. Note that the requirements of MS1 are minimal: you just
+  need to submit a program that compiles and runs, but there is no
+  requirement to implement specific functionality.
 * **Oct 2** — There was a mistake in the answer to question 1.d in the
   [Exam 1 review solutions](resources/exam1review-solutions.html).
   In the answer to the multiplication part of the question, the
