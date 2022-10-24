@@ -32,6 +32,8 @@ Please email <daveho@cs.jhu.edu> if you need to get access to Gradescope.
 
 ## News
 
+* **Oct 24** — Exam 2 will take place in class on Monday, Nov 7th.
+  Review materials are available on the [Resources](resources.html) page.
 * **Oct 5** — [Assignment 3](assign/assign03.html) has been posted. There are
   three milestones, due (respectively) Wed Oct 12, Mon Oct 24, and
   Mon Oct 31. Note that the requirements of MS1 are minimal: you just
