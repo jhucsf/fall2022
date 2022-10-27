@@ -43,3 +43,58 @@ In addition,
 This might sound complicated! Fortunately, this program can be implemented
 quite easily in about 200 lines of C code.
 
+### Fork/join computation
+
+The [fork/join](https://en.wikipedia.org/wiki/Fork%E2%80%93join_model) model
+of parallel computation is a technique for parallelizing divide and conquer
+algorithms.
+
+The outline of a fork/join computation is the following:
+
+```
+if (problem is small enough)
+  solve the problem sequentially
+else {
+  in parallel {
+    solve the left half of the problem
+    solve the right half of the problem
+  }
+  combine the solutions to the left/right halves of the problem
+}
+```
+
+In the case of merge sort, a fork/join approach will look something
+like this:
+
+```
+if (number of elements is at or below the threshold)
+  sort the elements sequentially
+else {
+  in parallel {
+    recursively sort the left half of the sequence
+    recursively sort the right half of the sequence
+  }
+  merge the sorted sequences
+}
+```
+
+In your program, "sort the elements sequentially" can be delegated to the
+[qsort function](https://man7.org/linux/man-pages/man3/qsort.3.html).
+
+Recursively sorting in parallel can be implemented by using
+[fork](https://man7.org/linux/man-pages/man2/fork.2.html) two times to create two
+child processes, and having each one recursively sort half of
+the array.
+
+Merging the elements sequentially can be implemented using
+a function call to a `merge` function (which you will need to
+implement.)
+
+### Memory-mapped file I/O
+
+The [mmap](https://man7.org/linux/man-pages/man2/mmap.2.html) system call allows
+a process to map file data into its address space. If the process
+passes the `PROT_READ|PROT_WRITE` options for the *prot* argument and
+`MAP_SHARED` option to the *options* argument, then any modifications
+the process makes to the memory within the file mapping will be written
+back to the actual file.
