@@ -98,3 +98,30 @@ passes the `PROT_READ|PROT_WRITE` options for the *prot* argument and
 `MAP_SHARED` option to the *options* argument, then any modifications
 the process makes to the memory within the file mapping will be written
 back to the actual file.
+
+TODO: talk about opening a file using open system call
+
+TODO: talk about getting file size using fstat system call
+
+TODO: mention any details that might be necessary for calling mmap
+
+### Creating child processes
+
+TODO: talk about using fork, emphasizing the importance of making sure
+that they exit (and don't start executing code that should only
+be executed by the parent process.)
+
+TODO: talk about waiting for child processes to complete using
+waitpid, and finding their exit status using WIFEXITED and
+WEXITSTATUS.
+
+### Generating test data, running the program
+
+TODO: describe how to create test data using dd and /dev/urandom.
+Suggest using /tmp (but emphasize not to leave very large files in
+/tmp.)
+
+TODO: emphasize that when working on a shared system, be careful about
+using system resources responsibly.
+
+TODO: explain how to run experiments, collect timing data.
