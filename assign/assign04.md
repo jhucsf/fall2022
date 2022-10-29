@@ -99,22 +99,22 @@ passes the `PROT_READ|PROT_WRITE` options for the *prot* argument and
 the process makes to the memory within the file mapping will be written
 back to the actual file.
 
-TODO: talk about opening a file using open system call
-
 Let's say that you want to map the contents of a file into memory so you can sort it.
 First, you will need to use the [open](https://man7.org/linux/man-pages/man2/open.2.html)
 syscall to open the file in read-write mode and get a file descriptor:
 
-```
+```c
 int fd = open(filename, O_RDWR);
+if (fd < 0) {
+  // file couldn't be opened: handle error and exit
+}
 ```
 
-TODO: talk about getting file size using fstat system call
 Next, `mmap` will need to know how many bytes of data the file has. This can be
 accomplished using the [fstat](https://man7.org/linux/man-pages/man3/fstat.3p.html) system
 call:
 
-```
+```c
 struct stat statbuf;
 int rc = fstat(fd, &statbuf);
 if (rc != 0) {
@@ -123,11 +123,10 @@ if (rc != 0) {
 size_t file_size_in_bytes = statbuf.st_size;
 ```
 
-TODO: mention any details that might be necessary for calling mmap
 Once the program knows the size of the file, creating a shared read-write mapping will
 allow the program, and all its descendants, to modify the file in-place in memory:
 
-```
+```c
 int64_t *data = mmap(NULL, file_size_in_bytes, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0)
 if (data == MAP_FAILED) {
     // handle mmap error and exit
@@ -144,19 +143,14 @@ Note: Don't forget to call [munmap](https://man7.org/linux/man-pages/man2/mmap.2
 topmost process in your program before returning to prevent leaking resources. Note that
 closing a file descriptor _does not_ `unmap` the memory; both calls must be used.
 
-
 ### Creating child processes
-
-TODO: talk about using fork, emphasizing the importance of making sure
-that they exit (and don't start executing code that should only
-be executed by the parent process.)
 
 The `fork()` call can be used to spawn child processes from the current process. The child
 will start executing at the point of the fork call, and will share its initial memory
 space with the parent. Recall that the fork call will always return the `pid` zero to the
 newly started subprocess, and the actual `pid` to the parent process:
 
-```
+```c
 pid_t pid = fork()
 if (pid == -1) {
     // fork failed to start a new process
@@ -173,7 +167,7 @@ which will lead to memory corruption and other difficult-to-debug behaviors. We 
 recommend that you hand over control to a function and exit the child process immediately
 afterwards:
 
-```
+```c
 if (pid == 0) {
     int retcode = do_child_work();
     exit(retcode);
@@ -181,14 +175,10 @@ if (pid == 0) {
 }
 ```
 
-TODO: talk about waiting for child processes to complete using
-waitpid, and finding their exit status using WIFEXITED and
-WEXITSTATUS.
-
 To pause program execution until a child process has completed, we recommend using the
 [waitpid](https://man7.org/linux/man-pages/man3/wait.3p.html) call:
 
-```
+```c
 int wstatus;
 // blocks until the process indentified by pid_to_wait_for completes
 pid_t actual_pid = waitpid(pid_to_wait_for, &wstatus, 0);
@@ -203,7 +193,7 @@ will evaluate to a true value if the subprocess exited normally, and the
 `WEXITSTATUS(wstatus)` macro can be used to retrieve the return code that the subprocess
 exited with:
 
-```
+```c
 if (!WIFEXITED(wstatus)) {
     // subprocess crashed, was interrupted, or did not exit normally
     // handle as error
@@ -226,13 +216,11 @@ around while your program executes.
 
 ### Generating test data, running the program
 
-TODO: describe how to create test data using dd and /dev/urandom.
-Suggest using /tmp (but emphasize not to leave very large files in
-/tmp.)
 You can create some random test data using the `gen_rand_data` executable we have included
 in the starter code:
 
 ```
+make gen_rand_data
 ./gen_rand_data [size] [output filename]
 ```
 
@@ -246,9 +234,18 @@ which will generate 8000 bytes of data (1000 `int64s`) and place it in a file ca
 `test.in`. Be sure that your specified size is a multiple of 8 so that your sort and
 verify function will function correctly!
 
+You can also use the `M` suffix on the *size* argument to specify the output file
+size in megabytes. For example, the following command would create a file
+`/tmp/test_1M.in` with 131,072 8-byte integer values:
+
+```
+./gen_rand_data 1M /tmp/test_1M.in
+```
+
 We suggest using the `/tmp` directory (the system temporary directory) to create your test
-files to prevent accumulating many small test files alongside your assignment. However, if
-you do decide to use `/tmp` please note the following points:
+files to prevent accumulating many small test files alongside your assignment, and to
+avoid interactions with the network file server that might affect the performance
+of the program. However, if you do decide to use `/tmp` please note the following points:
 
 * `/tmp` is shared amongst all users of the system, so you should probably create a
     subfolder that will be reasonably unique to you.
@@ -260,8 +257,11 @@ you do decide to use `/tmp` please note the following points:
 * You must not create every large files in `/tmp` and you must ensure that you delete
     everything you leave there _before logging off_.
 
+If you create a few files that are no more than, say, 16 megabytes in size, and if you
+clean them up properly before logging out, you should be fine.
+
 To check that your sort program works correctly, you can use the `is_sorted` program we have
-included in the starer code:
+included in the starter code:
 
 ```
 # generate the file with 1000 integers
@@ -269,14 +269,12 @@ included in the starer code:
 # sort the file
 ./parsort data.in 500
 # verify that the file is sorted correctly
+make is_sorted
 ./is_sorted data.in
 ```
 
-If the file is correctly sorted, `is_sorted` will print "Data values are sorted!\n",
+If the file is correctly sorted, `is_sorted` will print "`Data values are sorted!`",
 otherwise, it will print an informative error message.
-
-TODO: emphasize that when working on a shared system, be careful about
-using system resources responsibly.
 
 Remember that you are writing a parallel program that can consume resources at an
 exponential rate. If you are working on a shared system (e.g. the ugrad machines), you
@@ -289,8 +287,6 @@ process tree receives an interrupt signal and is terminated. Estimate the number
 processes that your program will attempt to spawn with the given parameters before running
 the command. You should never try spawning more than a hundred processes at your highest
 limits on a shared system.
-
-TODO: explain how to run experiments, collect timing data.
 
 You can collect timing info for a given command be prefixing it with the time command:
 
@@ -314,6 +310,14 @@ do you best to run your experiment when the host system is at low load (you can 
 current load by using the `uptime` command).You will need to tweak the amount of data you
 test against until you are able to distinguish results between different threshold values
 on the same data size.
+
+### Hints and tips
+
+Before coding the parallel fork/join implementation, you should implement and
+fully test a *sequential* implementation of merge sort.  It's a waste of time
+to try to debug the parallel version of the algorithm if there are bugs in the
+sequential implementation of the algorithm, such as function that merges
+sorted arrays. (Ask us how we know 😄...)
 
 ### Report on speedup
 
