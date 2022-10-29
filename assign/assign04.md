@@ -350,8 +350,9 @@ of parallel execution.
 You should run the following commands:
 
 ```
+make clean
 make
-mkdir /tmp/$(whoami)
+mkdir -p /tmp/$(whoami)
 ./gen_rand_data 16M /tmp/$(whoami)/data_16M.in
 cp /tmp/$(whoami)/data_16M.in /tmp/$(whoami)/test_16M.in
 time ./parsort /tmp/$(whoami)/test_16M.in 2097152 
@@ -378,6 +379,14 @@ For example, at the smallest threshold of 16384 elements, there
 will be 128 processes doing sequential sorting at the
 base cases of the recursion.
 
+We have provided a shell script called `run_experiments.sh` which
+runs these commands, so to collect your experimental data you could
+just run the command
+
+```
+./run_experiments.sh
+```
+
 We suggest using one of the numbered ugrad machines (ugrad1.cs.jhu.edu
 to ugrad24.cs.jhu.edu) to do your experiment. When you log in, you can
 run the `top` command to see what processes are running. If any processes
@@ -389,7 +398,9 @@ When you run the commands, copy the output of the `time` command. The
 `real` will indicate the amount of time that elapsed between when
 the program started and exited, which is a pretty good measure of
 how long the sorting took.  You *should* see that decreasing the
-threshold decreased the total time.
+threshold decreased the total time, although depending on the number
+of CPU cores available, eventually a point of dimimishing returns
+will be reached.
 
 In your `README.txt`, write a brief report which
 
