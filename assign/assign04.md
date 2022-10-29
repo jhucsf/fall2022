@@ -74,7 +74,8 @@ else {
     recursively sort the left half of the sequence
     recursively sort the right half of the sequence
   }
-  merge the sorted sequences
+  merge the sorted sequences into a temp array
+  copy the contents of the temp array back to the original array
 }
 ```
 
@@ -213,6 +214,26 @@ term). While the kernel and the `init` process do clean up zombies after the par
 it is a good practice to ensure that you promptly deal with zombie program in your
 program. We will be manually checking your code to ensure that you don't leave zombies
 around while your program executes.
+
+### Handling errors
+
+If the `parsort` program encounters an error, it should print a message
+of the form
+
+<div class='highlighter-rouge'><pre>
+Error: <i>explanation</i>
+</pre></div>
+
+to the standard error stream (i.e., `stderr`), and exit with a non-zero exit code.
+
+Examples of errors that should be handled are:
+
+* failure to open the file with the integers to be sorted
+* failure to `mmap` the file data
+* failure to create a child process using `fork`
+* a child process not exiting normally, or exiting with a non-zero exit code
+* failure of the "top-level" process to `munmap` the file data and
+  `close` the file
 
 ### Generating test data, running the program
 
