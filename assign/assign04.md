@@ -229,22 +229,22 @@ around while your program executes.
 TODO: describe how to create test data using dd and /dev/urandom.
 Suggest using /tmp (but emphasize not to leave very large files in
 /tmp.)
-You can create some random test data using the `dd` command:
+You can create some random test data using the `gen_rand_data` executable we have included
+in the starter code:
 
 ```
-dd if=/dev/urandom of=/path/to/output/file bs=8 count=number of integers to generate
+./gen_rand_data [size] [output filename]
 ```
 
-e.g. to generate a file named `test.in` n the /tmp directory of 1000 integers, you can use
-the following command:
+For instance, to generate 1000 integers, you can use
 
 ```
-dd if = /dev/urandom of=/tmp/test.in bs=8 count=1000
+./gen_rand_data 8000 test.in
 ```
 
-Please be very careful when executing `dd`. It will happily fill up you entire disk if you
-make a typo in either the counts or the blocksize. Similarly, double check your output
-path before you run `dd`, as it will overwrite anything there without any warning.
+which will generate 8000 bytes of data (1000 `int64s`) and place it in a file called
+`test.in`. Be sure that your specified size is a multiple of 8 so that your sort and
+verify function will function correctly!
 
 We suggest using the `/tmp` directory (the system temporary directory) to create your test
 files to prevent accumulating many small test files alongside your assignment. However, if
@@ -265,7 +265,7 @@ included in the starer code:
 
 ```
 # generate the file with 1000 integers
-dd if=/dev/urandom of=data.in bs=8 count=1000
+./gen_rand_data 8000 test.in
 # sort the file
 ./parsort data.in 500
 # verify that the file is sorted correctly
@@ -298,7 +298,7 @@ You can collect timing info for a given command be prefixing it with the time co
 time ./parsort test.in 1000
 ```
 
-This will report you timing information in the following format:
+This will report your timing information in the following format:
 
 ```
 real    0m0.010s
@@ -306,11 +306,14 @@ user    0m0.002s
 sys     0m0.001s
 ```
 
-You should use the `sys` time reported to eliminate scheduling variance. Since this will
-still be sensitive to system load, you should run each experiment multiple times, and
-eliminate any clear outliers before including a result in your report. You will need to
-tweak the amount of data you test against until you are able to distinguish results
-between different threshold values on the same data size.
+You should use the `real` time reported to get the total wall-clock time your program
+takes, since the other times will serialize the time taken across all descendants. Since
+this will be very sensitive to system load, you should run each experiment multiple times,
+and eliminate any clear outliers before including a result in your report. You should also
+do you best to run your experiment when the host system is at low load (you can find the
+current load by using the `uptime` command).You will need to tweak the amount of data you
+test against until you are able to distinguish results between different threshold values
+on the same data size.
 
 ### Report on speedup
 
@@ -338,8 +341,8 @@ autograder tests. Due to the nature of the problem, there will be a significant 
 points up for manual review, so please structure your code accordingly. Some of the things
 we may manually verify (bot not limited to) are:
 
-* Ensuring that your implementation is actually parallel
-* Ensuring that you did not leave zombies around during execution
+* Ensuring that your implementation is actually parallel.
+* Ensuring that you did not leave zombies around during execution.
 * Ensuring that the correct number of children are created for a given threshold and data
   size value.
 
@@ -347,6 +350,6 @@ we may manually verify (bot not limited to) are:
 
 Edit the `README.txt` file to include the report and summarize each team member's contributions.
 
-You can create a zipfile of your solution using the command `make solution.zip`
+You can create a zipfile of your solution using the command `make solution.zip`.
 
 Submit your zipfile to **Assignment 4**.
