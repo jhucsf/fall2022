@@ -319,6 +319,7 @@ to try to debug the parallel version of the algorithm if there are bugs in the
 sequential implementation of the algorithm, such as function that merges
 sorted arrays. (Ask us how we know 😄...)
 
+<!--
 ### Report on speedup
 
 We will be requiring you to submit a brief report on you implementation in your README.txt
@@ -336,6 +337,73 @@ parallelism), then start increasing again as the process creation overhead outwe
 speedup provided by splitting up the work. If you see no benefit to any level of increased
 process-parallelism on a reasonably large dataset, or you see the parallel execution
 always take longer, you probably have made an implementation mistake.
+-->
+
+### Experiments and analysis
+
+To make sure that your `parsort` program is exhibiting the expected degree of
+parallelism, we would like you to perform an experiment where you create
+a random data file of 16 megabytes in size, and then time sorting this file
+multiple times, while adjusting the threshold to achieve increasing amounts
+of parallel execution.
+
+You should run the following commands:
+
+```
+make
+mkdir /tmp/$(whoami)
+./gen_rand_data 16M /tmp/$(whoami)/data_16M.in
+cp /tmp/$(whoami)/data_16M.in /tmp/$(whoami)/test_16M.in
+time ./parsort /tmp/$(whoami)/test_16M.in 2097152 
+cp /tmp/$(whoami)/data_16M.in /tmp/$(whoami)/test_16M.in
+time ./parsort /tmp/$(whoami)/test_16M.in 1048576
+cp /tmp/$(whoami)/data_16M.in /tmp/$(whoami)/test_16M.in
+time ./parsort /tmp/$(whoami)/test_16M.in 524288
+cp /tmp/$(whoami)/data_16M.in /tmp/$(whoami)/test_16M.in
+time ./parsort /tmp/$(whoami)/test_16M.in 262144
+cp /tmp/$(whoami)/data_16M.in /tmp/$(whoami)/test_16M.in
+time ./parsort /tmp/$(whoami)/test_16M.in 131072
+cp /tmp/$(whoami)/data_16M.in /tmp/$(whoami)/test_16M.in
+time ./parsort /tmp/$(whoami)/test_16M.in 65536
+cp /tmp/$(whoami)/data_16M.in /tmp/$(whoami)/test_16M.in
+time ./parsort /tmp/$(whoami)/test_16M.in 32768
+cp /tmp/$(whoami)/data_16M.in /tmp/$(whoami)/test_16M.in
+time ./parsort /tmp/$(whoami)/test_16M.in 16384
+rm -rf /tmp/$(whoami)
+```
+
+The `parsort` commands start with a completely sequential sort,
+and then test with increasing degrees of parallelism.
+For example, at the smallest threshold of 16384 elements, there
+will be 128 processes doing sequential sorting at the
+base cases of the recursion.
+
+We suggest using one of the numbered ugrad machines (ugrad1.cs.jhu.edu
+to ugrad24.cs.jhu.edu) to do your experiment. When you log in, you can
+run the `top` command to see what processes are running. If any processes
+are consuming significant CPU time, you should consider logging into
+a different system, until you find one where no processes are consuming
+significant CPU time.
+
+When you run the commands, copy the output of the `time` command. The
+`real` will indicate the amount of time that elapsed between when
+the program started and exited, which is a pretty good measure of
+how long the sorting took.  You *should* see that decreasing the
+threshold decreased the total time.
+
+In your `README.txt`, write a brief report which
+
+1. Indicates the amount of time that your `parsort` program took
+   so sort the test data for each threshold value, and
+2. States a reasonable explanation for *why* you saw the times you did
+
+For \#2, think about how the computation unfolds, and in particular,
+what parts of the computation are being executed in different processes,
+and thus which parts of the computation could be schedule by the
+OS kernel on different CPU cores. We don't expect a completely
+rigorous and in-depth explanation, but we *would* like you to
+give an intuitive explanation for the results that you observed.
+
 
 ### Note on the autograder
 
@@ -345,7 +413,9 @@ autograder tests. Due to the nature of the problem, there will be a significant 
 points up for manual review, so please structure your code accordingly. Some of the things
 we may manually verify (bot not limited to) are:
 
-* Ensuring that your implementation is actually parallel.
+* Ensuring that your implementation is actually parallel. (Your
+  [experiments](#experiments-and-analysis) should have already allowed you to
+  determine whether your program is exhibiting any parallel speedup.)
 * Ensuring that you did not leave zombies around during execution.
 * Ensuring that the correct number of children are created for a given threshold and data
   size value.
