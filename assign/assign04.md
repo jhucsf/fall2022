@@ -399,8 +399,8 @@ In your `README.txt`, write a brief report which
 
 For \#2, think about how the computation unfolds, and in particular,
 what parts of the computation are being executed in different processes,
-and thus which parts of the computation could be schedule by the
-OS kernel on different CPU cores. We don't expect a completely
+and thus which parts of the computation could be scheduled by the
+OS kernel in parallel on different CPU cores. We don't expect a completely
 rigorous and in-depth explanation, but we *would* like you to
 give an intuitive explanation for the results that you observed.
 
