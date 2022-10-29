@@ -426,4 +426,4 @@ Edit the `README.txt` file to include the report and summarize each team member'
 
 You can create a zipfile of your solution using the command `make solution.zip`.
 
-Submit your zipfile to **Assignment 4**.
+Submit your zipfile to Gradescope as **Assignment 4**.
