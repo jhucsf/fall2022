@@ -23,8 +23,8 @@ the invocation is
 </pre></div>
 
 where *filename* is the file containing the data to sort, and *threshold*
-is the number of elements below which the program should use a sequential
-sort.
+is the number of elements below (inclusive) which the program should use a
+sequential sort.
 
 ## Your task
 
@@ -98,7 +98,9 @@ a process to map file data into its address space. If the process
 passes the `PROT_READ|PROT_WRITE` options for the *prot* argument and
 `MAP_SHARED` option to the *options* argument, then any modifications
 the process makes to the memory within the file mapping will be written
-back to the actual file.
+back to the actual file. Since descendants created with `fork()` share their
+initial memory space with their parent, the file only needs to be mmap'ed into
+memory once so long as each child works on a different region of mapped memory.
 
 Let's say that you want to map the contents of a file into memory so you can sort it.
 First, you will need to use the [open](https://man7.org/linux/man-pages/man2/open.2.html)
@@ -132,11 +134,14 @@ int64_t *data = mmap(NULL, file_size_in_bytes, PROT_READ | PROT_WRITE, MAP_SHARE
 if (data == MAP_FAILED) {
     // handle mmap error and exit
 }
+// *data now behaves like a standard array of int64_t. Be careful though! Going off the end
+// of the array will silently extend the file, which can rapidly lead to disk space
+// depletion!
 ```
 
 Passing in `NULL` for the requested mapping address gives `mmap` complete freedom to
 choose any address in memory to map. Since we don't care where the file ends up in memory,
-so long as we can access it, this is the correct semantics. Similarly, we want to map the
+so long as we can access it, this is what we want. Similarly, we want to map the
 entire file, so we set the offset to zero.
 
 Note: Don't forget to call [munmap](https://man7.org/linux/man-pages/man2/mmap.2.html) and
@@ -160,6 +165,7 @@ if (pid == -1) {
     // this is now in the child process
 }
 // if pid is not 0, we are in the parent process
+// WARNING, if the child process path can get here, things will quickly break very badly
 ```
 
 You must make sure that the child branch exits after it has completed its work. Failure to
@@ -201,19 +207,22 @@ if (!WIFEXITED(wstatus)) {
 }
 if (WEXITSTATUS(wstatus) != 0) {
     // subprocess returned a non-zero exit code
+    // if following standard UNIX conventions, this is also an error
 }
 ```
 
-Thus, the subprocess and notify its parent if its operation succeeded by returning a return code.
+Thus, the subprocess can notify its parent if its operation succeeded by returning a suitable
+return code. Remember to propagate error conditions up to the root process so it can
+report that the sort job failed using a non-zero error code.
 
 Note: You must wait on every new process you start. This means that every fork call should
 have a corresponding `waitpid` call. Failure to due this in a long-running process creates
 a "pid leak", and can lead to pid exhaustion and the inability to start any new processes
-on the system due to the accumulation of the "zombie" processes (yes this is the technical
-term). While the kernel and the `init` process do clean up zombies after the parent exits,
-it is a good practice to ensure that you promptly deal with zombie program in your
-program. We will be manually checking your code to ensure that you don't leave zombies
-around while your program executes.
+on the system due to the accumulation of the "zombie processes" (yes this is the technical
+term). While the kernel and the `init` process will clean up your zombies after the root
+process exits, it is a good practice to ensure that you promptly deal with zombie
+processes in your program. We will be manually checking your code to ensure that you don't
+leave zombies around while your program executes.
 
 ### Handling errors
 
@@ -245,15 +254,15 @@ make gen_rand_data
 ./gen_rand_data [size] [output filename]
 ```
 
-For instance, to generate 1000 integers, you can use
+For instance, to generate 1000 integers, you can use:
 
 ```
 ./gen_rand_data 8000 test.in
 ```
 
-which will generate 8000 bytes of data (1000 `int64s`) and place it in a file called
-`test.in`. Be sure that your specified size is a multiple of 8 so that your sort and
-verify function will function correctly!
+which will generate 8000 bytes of data (1000 `int64s) and place it in a file called
+`test.in`. Be sure that your specified size is a multiple of 8 so that your `parsort` and
+`is_sorted` programs will function correctly!
 
 You can also use the `M` suffix on the *size* argument to specify the output file
 size in megabytes. For example, the following command would create a file
@@ -269,14 +278,15 @@ avoid interactions with the network file server that might affect the performanc
 of the program. However, if you do decide to use `/tmp` please note the following points:
 
 * `/tmp` is shared amongst all users of the system, so you should probably create a
-    subfolder that will be reasonably unique to you.
+  subfolder that will be reasonably unique to you so you don't accidentally overwrite
+  someone else's file.
 * `/tmp` is local to the current machine. E.g. `/tmp` on ugrad1 is independent of `/tmp`
-    on ugrad2.
+  on ugrad2.
 * Since `/tmp` is shared, you **must ensure** that you set file permissions correctly on
   your created directory (`chmod -R 700 /tmp/mydir`). You should also keep your actual
   implementation out of `/tmp`.
 * You must not create every large files in `/tmp` and you must ensure that you delete
-    everything you leave there _before logging off_.
+  everything you leave there _before logging off_.
 
 If you create a few files that are no more than, say, 16 megabytes in size, and if you
 clean them up properly before logging out, you should be fine.
@@ -300,14 +310,15 @@ otherwise, it will print an informative error message.
 Remember that you are writing a parallel program that can consume resources at an
 exponential rate. If you are working on a shared system (e.g. the ugrad machines), you
 must ensure that you test in a responsible manner. If your program appears to be frozen,
-or taking an inordinate amount of time, you should immediately terminate it. You should
+or taking an inordinate amount of time, you must immediately terminate it. You should
 test your program on small inputs first, before moving on to larger ones to contain the
 blast radius of any potential programming mistakes that you might have made. Do not
-suspend your program using `ctrl-z`, you must use `ctrl-c` to ensure that the entire
+suspend your program using `ctrl-z`; you must use `ctrl-c` to ensure that the entire
 process tree receives an interrupt signal and is terminated. Estimate the number of
 processes that your program will attempt to spawn with the given parameters before running
 the command. You should never try spawning more than a hundred processes at your highest
-limits on a shared system.
+limits on a shared system, and far fewer if they are expected to be long-running
+processes.
 
 You can collect timing info for a given command be prefixing it with the time command:
 
@@ -328,7 +339,7 @@ takes, since the other times will serialize the time taken across all descendant
 this will be very sensitive to system load, you should run each experiment multiple times,
 and eliminate any clear outliers before including a result in your report. You should also
 do you best to run your experiment when the host system is at low load (you can find the
-current load by using the `uptime` command).You will need to tweak the amount of data you
+current load by using the `top` command). You will need to tweak the amount of data you
 test against until you are able to distinguish results between different threshold values
 on the same data size.
 
@@ -340,25 +351,12 @@ to try to debug the parallel version of the algorithm if there are bugs in the
 sequential implementation of the algorithm, such as function that merges
 sorted arrays. (Ask us how we know 😄...)
 
-<!--
-### Report on speedup
+Ensure that only the root process (i.e. the first process executed) ever attempts
+to open the file, map memory, and carry out cleanup. Attempting to `close()` or
+`munmap()` the file multiple times will lead to crashes and other unpredictable behaviour.
 
-We will be requiring you to submit a brief report on you implementation in your README.txt
-file that includes the following information:
-
-* Test results from running your parallel sort program on inputs of varying sizes.
-* Test results from running your parallel sort program with a threshold set high enough to
-  sort the file sequentially, and subsequent lower thresholds to test speedup as
-  parallelism increases.
-* Justification on why you obtained the results you did.
-
-If you implemented your program correctly, you should see execution time decrease to an
-asymptotic limit as you decrease the threshold to a certain point (increasing
-parallelism), then start increasing again as the process creation overhead outweighs the
-speedup provided by splitting up the work. If you see no benefit to any level of increased
-process-parallelism on a reasonably large dataset, or you see the parallel execution
-always take longer, you probably have made an implementation mistake.
--->
+We highly recommend that you follow the guidance in the starter code and implement your
+program in C. Using C++ will make this assignment significantly harder.
 
 ### Experiments and analysis
 
@@ -395,7 +393,7 @@ rm -rf /tmp/$(whoami)
 ```
 
 The `parsort` commands start with a completely sequential sort,
-and then test with increasing degrees of parallelism.
+and then tests with increasing degrees of parallelism.
 For example, at the smallest threshold of 16384 elements, there
 will be 128 processes doing sequential sorting at the
 base cases of the recursion.
@@ -416,7 +414,7 @@ a different system, until you find one where no processes are consuming
 significant CPU time.
 
 When you run the commands, copy the output of the `time` command. The
-`real` will indicate the amount of time that elapsed between when
+`real` time will indicate the amount of time that elapsed between when
 the program started and exited, which is a pretty good measure of
 how long the sorting took.  You *should* see that decreasing the
 threshold decreased the total time, although depending on the number
@@ -441,16 +439,16 @@ give an intuitive explanation for the results that you observed.
 
 Passing the autograder will be a necessary but insufficient condition for full credit.
 This means that you may still lose functionality points, even if you pass all of the
-autograder tests. Due to the nature of the problem, there will be a significant number of
-points up for manual review, so please structure your code accordingly. Some of the things
-we may manually verify (bot not limited to) are:
+autograder tests. Due to the nature of testing parallel programs, there  will be a
+significant number of points up for manual review, so please structure your code
+accordingly. Some of the things we may manually verify (bot not limited to) are:
 
 * Ensuring that your implementation is actually parallel. (Your
   [experiments](#experiments-and-analysis) should have already allowed you to
   determine whether your program is exhibiting any parallel speedup.)
 * Ensuring that you did not leave zombies around during execution.
-* Ensuring that the correct number of children are created for a given threshold and data
-  size value.
+* Ensuring that the correct number of children are created for a given threshold
+  and data size value.
 
 ## Submitting
 
