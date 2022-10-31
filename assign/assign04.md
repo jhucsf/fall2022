@@ -408,7 +408,8 @@ just run the command
 
 We suggest using one of the numbered ugrad machines (ugrad1.cs.jhu.edu
 to ugrad24.cs.jhu.edu) to do your experiment. When you log in, you can
-run the `top` command to see what processes are running. If any processes
+run the `top` command to see what processes are running. (Note that you
+can type `q` to exit from `top`.) If any processes
 are consuming significant CPU time, you should consider logging into
 a different system, until you find one where no processes are consuming
 significant CPU time.
