@@ -3,9 +3,6 @@ layout: default
 title: "Assignment 4: Parallel merge sort"
 ---
 
-*Note: this is a preliminary/incomplete assignment description. Major details
-could change.*
-
 **Due**: Wednesday, Nov 9th by 11 pm Baltimore time
 
 Assignment type: **Pair**, you may work with one partner
