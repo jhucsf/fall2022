@@ -56,7 +56,7 @@ Oct 31 | Memory management, address translation: [slides](lectures/lecture23-pub
 Nov 2 | Memory mapping, dynamic memory allocation: [slides](lectures/lecture24-public.pdf) | *CSAPP* 9.8, 9.9, 9.11 | 
 Nov 4 | Exam 2 review session |  | 
 Nov 7 | **Exam 2** (in class) |  | 
-Nov 9 | Unix I/O, files: [slides](lectures/lecture25-public.pdf) | *CSAPP* 10.1–10.11 | <span class='tentative'>A4 due</span>
+Nov 9 | Unix I/O, files: [slides](lectures/lecture25-public.pdf) | *CSAPP* 10.1–10.11 | [A4](assign/assign04.html) due
 Nov 11 | Networks, Internet Protocol: [slides](lectures/lecture26-public.pdf) | *CSAPP* 11.1–11.3 | 
 Nov 14 | Sockets, Application Protocols: [slides](lectures/lecture27-public.pdf), [sockets.zip (example code)](lectures/sockets.zip) | *CSAPP* 11.4 | 
 Nov 16 | Network applications, HTTP: [slides](lectures/lecture28-public.pdf), [webserver.zip (example code)](lectures/webserver.zip) | *CSAPP* 11.4–11.6 | 
