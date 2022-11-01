@@ -209,15 +209,15 @@ if (WEXITSTATUS(wstatus) != 0) {
 ```
 
 Thus, the subprocess can notify its parent if its operation succeeded by returning a suitable
-return code. Remember to propagate error conditions up to the root process so it can
+return code. Remember to propagate error conditions up to the topmost process so it can
 report that the sort job failed using a non-zero error code.
 
 Note: You must wait on every new process you start. This means that every fork call should
 have a corresponding `waitpid` call. Failure to due this in a long-running process creates
 a "pid leak", and can lead to pid exhaustion and the inability to start any new processes
 on the system due to the accumulation of the "zombie processes" (yes this is the technical
-term). While the kernel and the `init` process will clean up your zombies after the root
-process exits, it is a good practice to ensure that you promptly deal with zombie
+term). While the kernel and the `init` process will clean up your zombies after the
+topmost process exits, it is a good practice to ensure that you promptly deal with zombie
 processes in your program. We will be manually checking your code to ensure that you don't
 leave zombies around while your program executes.
 
@@ -348,7 +348,7 @@ to try to debug the parallel version of the algorithm if there are bugs in the
 sequential implementation of the algorithm, such as function that merges
 sorted arrays. (Ask us how we know 😄...)
 
-Ensure that only the root process (i.e. the first process executed) ever attempts
+Ensure that only the topmost process (i.e. the first process executed) ever attempts
 to open the file, map memory, and carry out cleanup. Attempting to `close()` or
 `munmap()` the file multiple times will lead to crashes and other unpredictable behaviour.
 
