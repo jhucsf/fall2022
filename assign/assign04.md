@@ -5,6 +5,9 @@ title: "Assignment 4: Parallel merge sort"
 
 **Due**: Wednesday, Nov 9th by 11 pm Baltimore time
 
+*Update 11/08*: Clarify how the FD should be closed. We will still accept the old
+behavior since this is close to the deadline.
+
 Assignment type: **Pair**, you may work with one partner
 
 ## Getting started
@@ -128,6 +131,10 @@ allow the program, and all its descendants, to modify the file in-place in memor
 
 ```c
 int64_t *data = mmap(NULL, file_size_in_bytes, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0)
+// you should immediately close the file descriptor here since mmap maintains a separate
+// reference to the file and all open fds will gets duplicated to the children, which will
+// cause fd in-use-at-exit leaks.
+// TODO: call close()
 if (data == MAP_FAILED) {
     // handle mmap error and exit
 }
@@ -348,9 +355,9 @@ to try to debug the parallel version of the algorithm if there are bugs in the
 sequential implementation of the algorithm, such as function that merges
 sorted arrays. (Ask us how we know 😄...)
 
-Ensure that only the topmost process (i.e. the first process executed) ever attempts
-to open the file, map memory, and carry out cleanup. Attempting to `close()` or
-`munmap()` the file multiple times will lead to crashes and other unpredictable behaviour.
+Ensure that only the topmost process (i.e. the first process executed) ever attempts to
+open the file, map memory, and carry out cleanup. Attempting `munmap()` the file multiple
+times will lead to crashes and other unpredictable behaviour.
 
 We highly recommend that you follow the guidance in the starter code and implement your
 program in C. Using C++ will make this assignment significantly harder.
