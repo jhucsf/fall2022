@@ -27,7 +27,40 @@ Milestone 2:
 * Report explaining thread synchronization in server: 15%
 * Design and coding style: 5%
 
-# Overview
+## Table of contents
+
+- [Overview](#overview)
+- [Goals of the assignment](#goals-of-the-assignment)
+- [Demo](#demo)
+- [The protocol](#the-protocol) - **Important:** You _must_ read this before starting the
+    assignment!
+- [Assignment skeleton](#assignment-skeleton)
+- [Milestone 1: The clients](#milestone-1-the-clients)
+  - [Receiver](#receiver)
+  - [Sender](#sender)
+  - [Error handling](#error-handling)
+  - [Implementation tips](#implementation-tips)
+  - [Testing](#testing) - *This is an important section!*
+  - [Automated testing](#automated-testing) - _Do not attempt automated testing until you
+      have thoroughly manually tested your programs._
+- [Milestone 2: The server](#milestone-2-the-server)
+  - [Tasks](#tasks)
+  - [Using threads for client connections](#using-threads-for-client-connections)
+  - [Receiver and sender loops](#receiver-and-sender-loops)
+  - [Broadcasting messages to receivers](#broadcasting-messages-to-receivers)
+  - [Synchronizing shared data](#synchronizing-shared-data)
+    - [Guard locks](#guard-locks)
+    - [Synchronization report](#synchronization-report)
+  - [Error handling](#error-handling)
+  - [Implementation tips](#implementation-tips)
+  - [Testing](#testing)
+    - [Manual testing](#manual-testing)
+    - [Automated testing](#automated-testing-1) - _do not attempt automated testing until
+        you have thoroughly manually tested your program_
+- [Reference](#reference)
+- [Submitting](#submitting)
+
+## Overview
 
 Download [csf\_assign05.zip](csf_assign05.zip) and unzip it.
 
@@ -743,7 +776,7 @@ and intentionally does not provide test feedback to you. Instead, we recommend
 that you use local testing techniques so you can use tools like debuggers and
 print statements to help debug.
 
-### Manual Testing
+#### Manual Testing
 
 To test this program, you may follow the instructions in the [MS1
 Testing](#testing) section, replacing the invocations of your client with
@@ -770,7 +803,7 @@ Here is a capture of an example testing session:
   });
 </script>
 
-## Automated Testing
+### Automated Testing
 
 Here are some automated tests you can try:
 
@@ -880,7 +913,7 @@ functions. You should definitely fix invalid reads, writes, or conditional jumps
 that are reported by valgrind. Note that the concurrency test does not always function
 with valgrind on the ugrad machines.
 
-## Reference 
+## Reference
 
 In the `reference` directory of the project skeleton, you will find executables
 called `ref-server`, `ref-sender`, and `ref-receiver`. As the names suggest, these
