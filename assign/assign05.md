@@ -10,8 +10,8 @@ is worth 1/6 of the assignments grade for the course, equal to
 
 **Due:**
 
-* Milestone 1 due **FILL ME IN** by 11pm
-* Milestone 2 due **FILL ME IN** by 11pm
+* Milestone 1 due **Wed Nov 30** by 11pm
+* Milestone 2 due **Fri Dec 9** by 11pm
 
 ## Grading Criteria
 

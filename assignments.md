@@ -36,3 +36,4 @@ Assignment | Type | Due
 [Assignment 2](assign/assign02.html) | Pair | MS1 due Tues Sep 20<br>MS2 due Fri Sep 30<br>MS3 due Fri Oct 7
 [Assignment 3](assign/assign03.html) | Pair | MS1 due Wed Oct 12<br>MS2 due Mon Oct 24<br>MS3 due Mon Oct 31
 [Assignment 4](assign/assign04.html) | Pair | Wed Nov 9
+[Assignment 5](assign/assign05.html) | Pair | MS1 due Wed Nov 30<br>MS2 due Fri Dec 9
