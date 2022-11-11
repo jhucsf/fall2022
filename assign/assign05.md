@@ -13,6 +13,9 @@ is worth 1/6 of the assignments grade for the course, equal to
 * Milestone 1 due **Wed Nov 30** by 11pm
 * Milestone 2 due **Fri Dec 9** by 11pm
 
+You may use your late hours as usual on each milestone. Please let us know
+if you are planning to use more than 48 late hours on a milestone.
+
 ## Grading Criteria
 
 Milestone 1:
