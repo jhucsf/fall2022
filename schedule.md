@@ -63,9 +63,9 @@ Nov 16 | Network applications, HTTP: [slides](lectures/lecture28-public.pdf), [w
 Nov 18 | Concurrency with pthreads: [slides](lectures/lecture29-public.pdf), [mt_webserver.zip (example code)](lectures/mt_webserver.zip) | *CSAPP* 12.3 | 
 Nov 21–25 | **Fall recess (no classes)** |  | 
 Nov 28 | Thread synchronization: [slides](lectures/lecture30-public.pdf), [synch.zip (example code)](lectures/synch.zip) | *CSAPP* 12.4–12.5 | 
-Nov 30 | Parallelism, concurrency issues: [slides](lectures/lecture31-public.pdf), [synch2.zip (example code)](lectures/synch2.zip) | *CSAPP* 12.6–12.7 | <span class='tentative'>A5 MS1 due</span>
+Nov 30 | Parallelism, concurrency issues: [slides](lectures/lecture31-public.pdf), [synch2.zip (example code)](lectures/synch2.zip) | *CSAPP* 12.6–12.7 | [A5](assign/assign05.html) MS1 due
 Dec 2 | Concurrency with processes: [slides](lectures/lecture32-public.pdf), [mp_webserver.zip (example code)](lectures/mp_webserver.zip) | *CSAPP* 12.1 | 
 Dec 5 | Concurrency with I/O multiplexing: [slides](lectures/lecture33-public.pdf), [iomux.zip (example code)](lectures/iomux.zip) | *CSAPP* 12.2 | 
 Dec 7 | *Topics TBD* |  | 
-Dec 9 | Exam 3 review session |  | <span class='tentative'>A5 MS2 due</span>
+Dec 9 | Exam 3 review session |  | [A5](assign/assign05.html) MS2 due
 TBD | **Exam 3** (location TBD) |  | 
