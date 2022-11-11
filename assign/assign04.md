@@ -274,7 +274,7 @@ For instance, to generate 1000 integers, you can use:
 ./gen_rand_data 8000 test.in
 ```
 
-which will generate 8000 bytes of data (1000 `int64s) and place it in a file called
+which will generate 8000 bytes of data (1000 `int64`s) and place it in a file called
 `test.in`. Be sure that your specified size is a multiple of 8 so that your `parsort` and
 `is_sorted` programs will function correctly!
 
