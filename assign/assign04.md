@@ -26,6 +26,16 @@ where *filename* is the file containing the data to sort, and *threshold*
 is the number of elements below (inclusive) which the program should use a
 sequential sort.
 
+## Grading criteria
+
+Your assignment grade will be determined as follows:
+
+* Sequential sorting using `qsort`: 20%
+* Parallel sorting using subprocesses: 50%
+* Experiments and report: 15%
+* Error reporting: 5%
+* Design and coding style: 10%
+
 ## Your task
 
 Your task is to write a program that will sort 64-bit signed integers

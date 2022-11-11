@@ -32,6 +32,8 @@ Please email <daveho@cs.jhu.edu> if you need to get access to Gradescope.
 
 ## News
 
+* **Nov 11** — [Assignment 4](assign/assign04.html) has been updated to
+  specify a grading criteria outline.
 * **Oct 31** — [Assignment 4](assign/assign04.html) is due on Wednesday
   Nov 9th.
 * **Oct 24** — Exam 2 will take place in class on Monday, Nov 7th.
