@@ -55,8 +55,8 @@ Milestone 2:
   - [Implementation tips](#implementation-tips)
   - [Testing](#testing)
     - [Manual testing](#manual-testing)
-    - [Automated testing](#automated-testing-1) - _do not attempt automated testing until
-        you have thoroughly manually tested your program_
+    - [Automated testing](#automated-testing-1) - _Do not attempt automated testing until
+        you have thoroughly manually tested your program._
 - [Reference](#reference)
 - [Submitting](#submitting)
 
@@ -88,7 +88,7 @@ larger class of network-enabled systems:
 
 ## Demo
 
-Here is an example chat session with three different senders and one receiver, all
+Here is an example chat session with two different senders and three receivers, all
 connected to the same server:
 
 <!-- Widget loads here -->
@@ -101,7 +101,7 @@ widget!)
 <script src="{{site.baseurl}}/js/asciinema-player.min.js"></script>
 <link rel="stylesheet" type="text/css" href="{{site.baseurl}}/css/asciinema-player.css">
 <script>
-  AsciinemaPlayer.create('assign05/session.cast', document.getElementById('demo-widget'), {
+  AsciinemaPlayer.create('assign05/demo.cast', document.getElementById('demo-widget'), {
   speed: 2,
   idleTimeLimit: 2,
   poster: 'npt:0:32'
