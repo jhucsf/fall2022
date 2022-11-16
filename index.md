@@ -32,6 +32,8 @@ Please email <daveho@cs.jhu.edu> if you need to get access to Gradescope.
 
 ## News
 
+* **Nov 16** — Exam 3 will take place Tuesday, Dec 20th at 9 am in
+  Shaffer 3. Review materials are on the [Resources](resources.html) page.
 * **Nov 11** — [Assignment 5](assign/assign05.html) has two milestones,
   due Wed Nov 30 and Fri Dec 9, respectively. Note that each milestone is weighted
   as a full assignment, so Assignment 5 is effectively a double assignment.

@@ -68,4 +68,4 @@ Dec 2 | Concurrency with processes: [slides](lectures/lecture32-public.pdf), [mp
 Dec 5 | Concurrency with I/O multiplexing: [slides](lectures/lecture33-public.pdf), [iomux.zip (example code)](lectures/iomux.zip) | *CSAPP* 12.2 | 
 Dec 7 | *Topics TBD* |  | 
 Dec 9 | Exam 3 review session |  | [A5](assign/assign05.html) MS2 due
-TBD | **Exam 3** (location TBD) |  | 
+Dec 20 | **Exam 3**, at 9 am in Shaffer 3 |  | 
