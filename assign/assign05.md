@@ -140,7 +140,7 @@ A _message_ is subject to the following restrictions:
 * If a tag has a payload that is ignored (e.g., the "quit" and "leave" tags),
   the tag/payload separator character `:` must still be present (e.g. `quit:` not `quit`),
   even if the payload is empty
-* An encoded message must not be more than `MAX_LENGTH` bytes.
+* An encoded message must not be more than `MAX_LEN` bytes.
 
 The first message sent to the server by a client is considered a login message,
 and must have one of the following tags:
@@ -239,7 +239,7 @@ this only covers the "happy case"):
 
 ![Receiver communication flow diagram](assign05/a5_receiver_flow.png)
 
-The receiver should print received messages to stdout in the following format:
+The receiver should print received messages to `stdout` in the following format:
 
 ```
 [username of sender]: [message text]
@@ -260,7 +260,7 @@ terminate it by sending it a `SIGINT` (a.k.a. `<ctrl>+c`).
 
 ### Sender
 
-Tun the sender using the following command:
+Run the sender using the following command:
 
 ```
 ./sender [server_address] [port] [username]
@@ -392,9 +392,9 @@ join:cafe
 <messages will appear here as they are sent to the room "cafe">
 ```
 
-Do not valgrind `netcat` as that will not be testing your program, and may
-generate false positives. Instead you should only valgrind the client executables
-that you write.
+Do not Valgrind `netcat` as that will not be testing your program, and may
+generate false positives. You should ensure that you run Valgrind directly on the
+client executables (e.g. `valgrind ./receiver ...`).
 
 We have recorded a screencast which demonstrates several testing scenarios
 using combinations of the reference server, your clients, your server,
@@ -402,7 +402,7 @@ and netcat:
 
 > <https://jh.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=3d9460a0-eca0-487b-8609-ae7f01050601>
 
-We also have a recording of a terminal session where we demo some of these
+We also have a recording of a terminal session where we demonstrate some of these
 manual testing workflows:
 
 <div id="client-test-widget"></div>
@@ -421,7 +421,7 @@ You can obtain the automated test scripts here:
 * [test_receiver.sh](assign05/test_receiver.sh)
 * [test_sender.sh](assign05/test_sender.sh)
 
-You can download them on the in the terminal by using `wget [link]` while you
+Download them on in the terminal using `wget [link]` while you
 are in the same directory your project is in. Don't forget to make them
 executable after downloading them using `chmod u+x [file]`.
 
@@ -442,17 +442,17 @@ can verify that your client exited with the correct exit code by running `echo
 $?` **immediately** after running the test script.
 
 The arguments are:
-* `port` - port to run server on. Pick anything above 1024
+* `port` - port to run server on. Pick anything above 1024.
 * `*_client` - name of the client binary to run. 
-* `room` - room to connect the sender to
+* `room` - room to connect the sender to.
 * `server_in_file` - file containing list of messages server should send, one
     message per line
 * `client_in_file` - file containing list of user inputs to the client, one per line.
 * `output_stem` - base filename for the output, the files
-    `[output_stem]-received.out`, `[output_stem]-client.out`,
-    `[output_stem]-client.err` will be created which correspond to the messages
-    sent by the client to the server, the output the client printed to `stdout`, and the
-    output the client printed to `stderr` respectively.
+   `[output_stem]-received.out`, `[output_stem]-client.out`,
+   `[output_stem]-client.err` will be created which correspond to the messages
+   sent by the client to the server, the output the client printed to `stdout`, and the
+   output the client printed to `stderr` respectively.
 
 While we highly encourage you to come up with your own test inputs, we have
 provided the following test inputs for reference:
@@ -512,7 +512,7 @@ For this part of the assignment, you will be responsible for implementing the
 _server_. The server is responsible for accepting messages from _senders_ and
 broadcasting them to all _receivers_ in the same room.
 
-The server will be run in the following manner from the terminal:
+The server can be run using the following command:
 
 ```
 ./server [port]
@@ -522,35 +522,36 @@ where `[port]` specifies the port that the server should listen on.
 
 ### Tasks
 
-Your overall tasks are to:
+Here is a suggested order of implementation:
 
 * Create a thread for each client connection. You will need a datastructure to
-    represent the data associated with each client. We recommend that you use the same
-    `Connection` class you used in part 1 to represent these connections. You
-    may use the login message to determine what kind of client is trying to
-    connect.
+  represent the data associated with each client. We recommend that you use the same
+  `Connection` class you used in part 1 to represent these connections. You
+  may use the login message to determine what kind of client is trying to
+  connect.
 * Process _control messages_ from clients.
-* Broadcast messages to all receivers in a room when a sender sends a message.
+* Broadcast messages to all receivers in a room when a sender sends a message. At this
+  point your server should work with well-behaving clients that don't send messages
+  at the same time.
 * Add synchronization for access to share data structures (`Room`s, `Server`) so
-    no messages are lost, even if a receiver leaves or tries to join in the middle of a
-    broadcast. You also must not lose messages that are sent at the same time
-    from two different senders.
+  no messages are lost, even if a receiver leaves or tries to join in the middle of a
+  broadcast. You also must not lose messages that are sent at the same time
+  from two different senders.
 
 ### Using threads for client connections
 
-In general, it makes sense for server applications to handle connections from
-multiple clients simultaneously, as servers are typically responsible for
-coordinating data exchanges. Threads are a useful mechanism for handling
-multiple client connections because they allow the code that communicates with
-each client to run concurrently.
+Your server applications will to handle connections from multiple clients simultaneously
+in order to be useful (after all, it is quite sad to only be able to chat with oneself).
+Threads are a useful mechanism for handling multiple client connections because they allow
+the code that communicates with each client to run concurrently.
 
 In your main server loop (`Server::handle_client_requests()` if you are following our
 scaffolding), you should create a thread for each accepted client connection using
 `pthread_create()`. A struct should be created to pass the `Connection` object and other
 required data to the client thread using the `aux` parameter of `pthread_create()`, and
-`worker()` as the entrypoint for the thread. It may also be a good idea to create
-`User` object in each client thread to track the pending messages, and register it to a
-`Room` when the client sends a join request.
+`worker()` should be used as the entrypoint for the thread. It may also be a good idea to
+create a `User` object in each client thread to track the pending messages, and register it
+to a `Room` when the client sends a join request.
 
 You can test that your server handles more than one connection correctly by
 spawning multiple receivers and senders on the same server, and checking that
@@ -560,17 +561,17 @@ the messages sent from all senders get correctly delivered to all receivers.
 
 We recommend that you separate the communication loops for the senders and receivers into
 the `chat_with_sender()` and `chat_with_receiver()` functions respectively. Please refer
-to the sequence diagrams in Part 1 to determine how you should implement these loops.
+to the sequence diagrams in Part 1 to determine how the loops should be implemented.
 
 We have already handled the `SIGPIPE` signal for you in our provided server main
 function, so you should be able to detect partial reads by matching the return
 value of `rio_*` against the size of the message transmitted. If they do not
-match, you may assume that a transmission error has occurred and handle
-accordingly.
+match, you may assume that a transmission error has occurred and should handle it as an
+[error](#error-handling).
 
 For all synchronous messages, you must ensure that the server always transmits
 some kind of response (`err` for error, `ok` for success) to receive full
-credit.
+credit. Failure to transmit a response to a synchronous message will cause the client to hang.
 
 In the receiver loop, you must terminate the loop and tear down the client thread if any
 message transmission fails, or if a valid `quit` message is received. For the sender loop,
@@ -611,24 +612,31 @@ message is done being added to all MessageQueues. It does not need to wait until
 the message has actually been delivered to all of the receivers in the room, but
 it should not return a status until the message is done being enqueued.
 
-Note: While we recommend `sem_timedwait()` in the starter code, `sem_wait()` is
-also acceptable for simplicity.  (Using `sem_timedwait()` has the advantage
-that the thread handling a connection with a receiver will not be blocked
+**Important:** Remember that stack allocated data is _thread local_ and must not be shared
+between threads. Since the `MessageQueue` is being used as an inter-thread communication
+primitive, you must ensure that messages pushed to the queue are always heap-allocated
+(e.g. allocated using `new`). Likewise, ensure that the dequeuing thread takes
+responsibility for freeing the memory. Finally, don't forget to empty the queue (i.e. free
+all queued messages) when the queue is destroyed to prevent memory leaks when a _receiver_
+disconnects before all messages could be delivered to it (consider where this happens
+carefully to implement the correct synchronization).
+
+Note: While we recommend `sem_timedwait()` in the starter code, `sem_wait()` is also
+acceptable for simplicity (i.e. you may safely ignore `ts`). (Using `sem_timedwait()` has
+the advantage that the thread handling a connection with a receiver will not be blocked
 indefinitely if there are no messages waiting to be delivered to that receiver.)
 
 ### Synchronizing shared data
 
-Synchronization is typically necessary when multiple threads can attempt to
-access the same data at the same time. Synchronization may also be necessary if
-certain semantics are desired of accessed to shared data (e.g. guaranteed
-ordering).
+Synchronization is typically necessary when multiple threads can attempt to access the
+same data in a hazardous manner at the same time. Synchronization may also be necessary if
+certain semantics are desired of accessed to shared data (e.g. guaranteed ordering).
 
-Strictly speaking, if the data type is _atomic_, read accesses need not be
-synchronized so long as they can probably never occur at the same time as a
-write. However, for this assignment, we are not using _atomic types_, so you
-will need to synchronize _all_ concurrent access.
+Strictly speaking, if the data type is _atomic_, read accesses need not be synchronized so
+long as they can never occur at the same time as a write. However, for this assignment, we
+are not using _atomic types_, so you will need to synchronize _all concurrent access_.
 
-The section of code where synchronized access to data is implemented is called a
+The section of code where synchronized access to data is imposed is called a
 "critical section", and should be limited in length as concurrency is greatly
 restricted in these sections. Making critical sections too long can potentially
 cripple performance in real-world applications.
@@ -695,10 +703,10 @@ introducing synchronization hazards (e.g. race conditions and deadlocks).
 
 ### Error Handling
 
-If the server fails to bind the listen TCP socket for any reason on the host,
-you must print a descriptive error message to `stderr` and return a non-zero
-return code. Once the server binds the port and starts listening for clients, it
-does not need to handle shutting itself down.
+If the server fails to bind the listen TCP socket for any reason on the host, you must
+print an error message to `stderr` and return a non-zero return code. Once the server
+binds the port and starts listening for clients, it does not need to handle shutting
+itself down.
 
 We expect your server to be _robust_. This means no matter what any client
 sends, in any order, your server should not crash. To ensure that this is
@@ -720,8 +728,7 @@ payload. If a sender tries to send a message or leave a room while it is not in
 a room, you must also return `err` with a suitable payload. This _should not_
 stop the server, nor disconnect the client. Otherwise, you _must_ send an `ok`
 message with suitable payload. Failure to send a response to a client operating
-in synchronous mode at any time one is expected is a _severe_ bug that will
-cause most tests to fail.
+in synchronous mode at any time is a _severe_ bug that will cause most tests to fail.
 
 All client data should be cleaned up as soon as the server detects that the
 client connection has died. You may assume that any transmission error indicates
@@ -729,25 +736,25 @@ that a client has died. It is okay if receivers are not cleaned up until the
 next broadcast is sent to a room for ease of implementation.
 
 Since your server has no way of shutting down, you may ignore the "in-use at
-exit" portion of valgrind. You should still fix any leaks (section marked
-"definitely lost"), and invalid reads, writes, and conditional jumps
+exit" portion of valgrind. You should still fix any leaks (sections marked
+"definitely lost"), invalid reads, invalid writes, and invalid conditional jumps
 
 ### Implementation tips
 
-Start early! There are quite a few things you will need to think through in order to
+Start early! There are quite a few things you will need to consider in order to
 receive full credit. We recommend that you start by implementing the logic that waits for
 new client connections and spawns client threads to handle them. If you are struggling
-with synchronization, we recommend that you reach a basic implementation without any
+with synchronization, we recommend that you start with a basic implementation without any
 synchronization, which might help you identify critical sections.
 
 We recommend that you use _detached threads_. This means that you will not have to join
-them back to the primary thread, and that you do not have to save the `pthread_t`from
-`pthread_create()`. There are two safe ways to do this. This first is to initialize a
+them back to the primary thread, and that you do not have to save the `pthread_t`returned
+from `pthread_create()`. There are two safe ways to do this. This first is to initialize a
 `pthread_attr_t` struct with the correct flags using `pthread_attr_setdetachedstate()`,
 and pass this into the relevant argument for `pthread_create()`. The second is to call
 `pthread_detach(pthread_self())` from the child thread. Under no circumstances should you
-attempt to detach the thread from the using a call in the creating thread after the child
-is created as that risks a data race.
+attempt to detach the thread using a call in the creating thread, after the child
+is created, as that will cause a data race.
 
 Don't forget to initialize your synchronization primitives before use. For
 `pthread_mutex_t`s this is `pthread_mutex_init()`. For semaphores, this is `sem_init()`.
@@ -762,8 +769,8 @@ that must be accessed between threads is part of a heap-allocation.
 
 We also recommend using scope to your advantage. RAII resources such as the provided
 `Guard` type prevent mistakes like forgetting to release resources, and defining variables
-to the narrowest scopes they will function in dramatically reduces the clast radius of any
-bugs that do arise. Aim to fail fast and early on coding mistakes.
+to the narrowest scopes they require dramatically reduces the clast radius of any
+bugs that do arise. Aim to fail fast and early if invalid states are encountered.
 
 If the server appears to become unresponsive for a long period of time it has
 probably deadlocked, and you will need to examine your synchronization. If a
@@ -910,11 +917,9 @@ server while it tries to cause race conditions.
 Note that the server can be run under valgrind by setting the `VALGRIND_ENABLE`
 environment variable to `1`. For example, if you want to run the sequential test
 with valgrind, the command would be run using `VALGRIND_ENABLE=1
-./test_sequential.sh ...`. You may ignore the reports for "indirectly lost",
-"possibly lost", and "in use at exit", and ignore leaks caused by `pthread_*`
-functions. You should definitely fix invalid reads, writes, or conditional jumps
-that are reported by valgrind. Note that the concurrency test does not always function
-with valgrind on the ugrad machines.
+./test_sequential.sh ...`. Remember that you may ignore the reports for "indirectly lost",
+"possibly lost", and "in use at exit", and any leaks caused by `pthread_*`
+functions, but must fix everything else.
 
 ## Reference
 
