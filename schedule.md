@@ -16,6 +16,8 @@ Readings are from:
 * *CSAPP*: Bryant and O'Hallaron, [Computer Systems: A Programmer's Perspective, 3rd ed](https://csapp.cs.cmu.edu/).
 * *P&amp;H*: Patterson and Hennessy, [Computer Organization and Design (MIPS edition)](https://www.elsevier.com/books/computer-organization-and-design-mips-edition/patterson/978-0-12-407726-3)
 
+*CSAPP* is by far the more important of the two textbooks.
+
 **Important**: do the reading *before*
 you come to class.
 
@@ -66,6 +68,6 @@ Nov 28 | Thread synchronization: [slides](lectures/lecture30-public.pdf), [synch
 Nov 30 | Parallelism, concurrency issues: [slides](lectures/lecture31-public.pdf), [synch2.zip (example code)](lectures/synch2.zip) | *CSAPP* 12.6–12.7 | [A5](assign/assign05.html) MS1 due
 Dec 2 | Concurrency with processes: [slides](lectures/lecture32-public.pdf), [mp_webserver.zip (example code)](lectures/mp_webserver.zip) | *CSAPP* 12.1 | 
 Dec 5 | Concurrency with I/O multiplexing: [slides](lectures/lecture33-public.pdf), [iomux.zip (example code)](lectures/iomux.zip) | *CSAPP* 12.2 | 
-Dec 7 | *Topics TBD* |  | 
+Dec 7 | Bonus topics: [slides](lectures/lecture34-public.pdf), [bonus.zip (example code)](lectures/bonus.zip) |  | 
 Dec 9 | Exam 3 review session |  | [A5](assign/assign05.html) MS2 due
 Dec 20 | **Exam 3**, at 9 am in Shaffer 3 |  | 

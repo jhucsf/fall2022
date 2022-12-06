@@ -21,6 +21,8 @@ Readings are from:
 * *CSAPP*: Bryant and O'Hallaron, [Computer Systems: A Programmer's Perspective, 3rd ed](https://csapp.cs.cmu.edu/).
 * *P&amp;H*: Patterson and Hennessy, [Computer Organization and Design (MIPS edition)](https://www.elsevier.com/books/computer-organization-and-design-mips-edition/patterson/978-0-12-407726-3)
 
+*CSAPP* is by far the more important of the two textbooks.
+
 **Important**: do the reading *before*
 you come to class.
 
